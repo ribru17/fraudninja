@@ -5,6 +5,29 @@
 
 This repo serves as a template for a repository that follows the Scrum process. The following information describes how the native features/workflows of Github can be customized to work in a scrum development process.
 
+## _Running the project_
+
+### Backend
+
+Navigate to the `backend` directory and run:
+
+```sh
+npm run dev
+```
+
+This will start a backend server on port `4000`.
+
+### Frontend
+
+Navigate to the `front` directory and run:
+
+```sh
+npm start
+```
+
+This will start a frontend server on port `3000`.
+
+
 ## Issues
 
 An issue is a unit of tracking work. Issues can be classified into different classes using `labels`. This can be used to classify issues in the scrum process as follows.
