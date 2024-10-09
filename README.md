@@ -27,34 +27,6 @@ npm start
 
 This will start a frontend server on port `3000`.
 
-### Use the shared-types
-
-Navigate to the `packages/shared-types`directory.
-If it's the first time then run :
-
-```sh
-npm i
-```
-
-Then you need to build the package by running :
-
-```sh
-npm run build
-```
-
-If it's the first time then you need to install the package in the frontend and the backend repository.
-Navigate to the `front` directory and run:
-
-```sh
-npm i
-```
-
-Navigate to the `backend` directory and run:
-
-```sh
-npm i
-```
-
 ## Issues
 
 An issue is a unit of tracking work. Issues can be classified into different classes using `labels`. This can be used to classify issues in the scrum process as follows.

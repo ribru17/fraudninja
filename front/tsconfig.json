@@ -16,7 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "shared-types": ["../shared-types/dist"]
+      "@shared_types": ["../shared_types/index.ts"]
     }
   },
   "include": ["src"]
