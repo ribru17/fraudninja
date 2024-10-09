@@ -1,4 +1,3 @@
-import "./App.css";
 import { Container, AppBar, Typography } from "@mui/material";
 
 import {

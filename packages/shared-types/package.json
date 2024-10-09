@@ -1,0 +1,17 @@
+{
+  "name": "@fraud-ninja/shared-types",
+  "description": "Shared types for your the fraudNinja project",
+  "version": "0.0.1",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "scripts": {
+    "build": "tsc --build --verbose",
+    "dev": "tsc --watch",
+    "lint": "eslint --ext .js,.ts"
+  },
+  "dependencies": {
+    "typescript": "^5.6.3"
+  }
+}

@@ -1,6 +1,7 @@
 import axios from "axios";
+import { User } from "@fraud-ninja/shared-types";
 
-const url = "http://localhost:3000/users";
+const url = "http://localhost:4000/users";
 
 export const fetchUsers = () => axios.get(url);
-export const createUser = (newUser: any) => axios.post(url, newUser);
+export const createUser = (newUser: User) => axios.post(url, newUser);
