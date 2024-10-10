@@ -21,7 +21,6 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/mongoose": "^5.11.97",
-    "@fraud-ninja/shared-types": "../packages/shared-types",
     "@types/node": "^22.7.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.6.3"
