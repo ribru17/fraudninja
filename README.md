@@ -5,27 +5,29 @@
 
 This repo serves as a template for a repository that follows the Scrum process. The following information describes how the native features/workflows of Github can be customized to work in a scrum development process.
 
-## _Running the project_
+## Development
 
-### Backend
+### Installing dependencies
 
-Navigate to the `backend` directory and run:
+In the project root directory, run
 
 ```sh
-npm run dev
+npm i
 ```
 
-This will start a backend server on port `4000`.
+This will install all dependencies for the backend and
+frontend.
 
-### Frontend
+### Running locally
 
-Navigate to the `front` directory and run:
+In the project root directory, run
 
 ```sh
 npm start
 ```
 
-This will start a frontend server on port `3000`.
+This will start a backend server on port `4000` and a
+frontend server (targeting `localhost`) on port `3000`.
 
 ## Issues
 
