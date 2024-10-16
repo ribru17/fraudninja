@@ -2,12 +2,12 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "CommonJS",
-    "rootDir": "./src",
+    "rootDir": "../",
     "outDir": "./dist",
     "esModuleInterop": true,
     "strict": true,
     "paths": {
-      "@shared_types/*": ["../shared_types/*"]
+      "@shared_types": ["../shared_types/index.ts"]
     }
   },
   "exclude": ["node_modules"]

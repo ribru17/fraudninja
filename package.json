@@ -6,6 +6,7 @@
     "start:backend": "cd ./backend && npm run dev"
   },
   "devDependencies": {
-    "concurrently": "^9.0.1"
+    "concurrently": "^9.0.1",
+    "zod": "^3.23.8"
   }
 }
