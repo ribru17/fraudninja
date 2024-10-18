@@ -21,6 +21,9 @@ export function WithSession({
         if (user) {
           dispatch(setUser(user));
           dispatch(setIsLoggedIn(true));
+          if (location.pathname === "/login") {
+            navigate("/");
+          }
         } else {
           dispatch(
             setUser({
