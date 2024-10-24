@@ -1,4 +1,4 @@
-import { Container, AppBar, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 
 import {
   BrowserRouter as Router,
@@ -15,18 +15,20 @@ import { SnackbarProvider } from "notistack";
 import { Suspense } from "react";
 import FullScreenSpinner from "./components/FullScreenSpinner";
 import { withStore } from "./components/withStore";
+import AppHeader from "./components/NavBar/AppHeader";
+import { useAppDispatch } from "./redux/hook";
+import { setToken } from "./redux/slices";
 
 function App() {
+  const dispatch = useAppDispatch();
   return (
     <Router>
       <WithSession>
         <SnackbarProvider maxSnack={3} preventDuplicate>
           <Container>
-            <AppBar position="static" color="inherit">
-              <Typography variant="h2" align="center">
-                FraudNinja
-              </Typography>
-            </AppBar>
+            <AppHeader
+              onSignOutClick={() => dispatch(setToken(""))}
+            ></AppHeader>
             <Suspense fallback={<FullScreenSpinner />}>
               <Container maxWidth="xl" sx={{ mt: 4 }}>
                 <Routes>
