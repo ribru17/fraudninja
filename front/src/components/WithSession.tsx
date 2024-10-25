@@ -31,6 +31,7 @@ export function WithSession({
               email: "",
               password: "",
               sub: "",
+              username: "",
             })
           );
           dispatch(setIsLoggedIn(false));
@@ -43,11 +44,12 @@ export function WithSession({
           email: "",
           password: "",
           sub: "",
+          username: "",
         })
       );
       dispatch(setIsLoggedIn(false));
     }
-  }, [dispatch, token, navigate]);
+  }, [dispatch, token, navigate, location.pathname]);
 
   if (
     !isLoggedIn &&

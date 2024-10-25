@@ -14,10 +14,10 @@ export const loginUser = async (credentials: Credentials): Promise<string> => {
 };
 
 export const signupUser = async (
-  credentials: Credentials
+  user: Omit<User, "_id">
 ): Promise<User | null> => {
   try {
-    const response = await axios.post(`${baseUrl}/signup`, credentials);
+    const response = await axios.post(`${baseUrl}/signup`, user);
     return response.data;
   } catch (error) {
     throw new Error("Login failed");

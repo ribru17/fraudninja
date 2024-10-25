@@ -79,25 +79,26 @@ export class SessionController {
     }
   };
 
-  signup = async (req: { body: Credentials }, res: any) => {
-    const credentials = req.body;
-    const user = await this.userController.getByEmail(credentials.email);
+  signup = async (req: { body: Omit<User, "_id"> }, res: any) => {
+    const partialUser = req.body;
+    const user = await this.userController.getByEmail(partialUser.email);
 
     if (user) {
       throw new Error("409");
     }
 
     try {
-      const hashedPassword = await bcrypt.hash(credentials.password, 10);
+      const hashedPassword = await bcrypt.hash(partialUser.password, 10);
       const userSub = await this.generateRandomSub();
       const newUser = {
-        email: credentials.email,
+        email: partialUser.email,
+        username: partialUser.username,
         password: hashedPassword,
         sub: userSub,
       };
 
       await this.userController.create(newUser);
-      const newUserDb = await this.userController.getByEmail(credentials.email);
+      const newUserDb = await this.userController.getByEmail(partialUser.email);
       res.status(201).json(newUserDb);
     } catch (error) {
       if (error instanceof Error) {

@@ -38,7 +38,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ onSignOutClick }) => {
             <Avatar />
           </IconButton>
           <Typography variant="body1" sx={{ mr: 1 }}>
-            {userInfo.email}
+            {userInfo.username}
           </Typography>
         </div>
         {isLoggedIn && <HamburgerMenu onSignOutClick={onSignOutClick} />}

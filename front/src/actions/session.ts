@@ -1,4 +1,4 @@
-import { Credentials } from "@shared_types";
+import { Credentials, User } from "@shared_types";
 import { loginUser, signupUser } from "../api";
 import { setToken } from "../redux/slices/sessionSlice";
 
@@ -13,9 +13,9 @@ export const login = (credentials: Credentials) => async (dispatch: any) => {
   }
 };
 
-export const signup = async (credentials: Credentials) => {
+export const signup = async (user: Omit<User, "_id">) => {
   try {
-    await signupUser(credentials);
+    await signupUser(user);
   } catch (error) {
     console.error("Signup action failed", error);
     throw error;
