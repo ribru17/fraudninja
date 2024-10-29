@@ -25,8 +25,8 @@ export class UserClient {
     return this.collection.findOne({ _id });
   }
 
-  async getByName(name: string): Promise<UserDocument | null> {
-    return this.collection.findOne({ name });
+  async getByUsername(username: string): Promise<UserDocument | null> {
+    return this.collection.findOne({ username });
   }
 
   async getByEmail(email: string): Promise<UserDocument | null> {

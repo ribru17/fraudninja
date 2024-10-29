@@ -4,44 +4,88 @@ import { UserClient } from "../clients";
 import jwt from "jsonwebtoken";
 import { JWT_KEY } from "../settings";
 import { InsertOneResult } from "mongodb";
+import { Request, NextFunction, Response } from "express";
 
 export class UserController {
   constructor(private readonly client: UserClient) {}
-  async getAll(): Promise<User[]> {
-    const users = await this.client.getAll();
-    return users.map((user) => {
-      return { ...user, _id: encodeHex(user._id) };
-    });
-  }
-  async getById(id: string): Promise<User | null> {
-    const decodedId = decodeHex(id);
-    if (!decodedId) return null;
 
-    const user = await this.client.getById(decodedId);
-    if (!user) return null;
-    return { ...user, _id: encodeHex(user._id) };
-  }
-  async getByToken(token: string): Promise<User | null> {
+  getAll = async (
+    _: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     try {
-      const sub = await UserController.verifyToken(token);
+      const users = await this.client.getAll();
+      const transformedUsers = users.map((user) => ({
+        ...user,
+        _id: encodeHex(user._id),
+      }));
+      res.json(transformedUsers);
+    } catch (error) {
+      next(error);
+    }
+  };
 
+  getById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params;
+      const decodedId = decodeHex(id);
+      if (!decodedId) {
+        res.status(400).json({ error: "Invalid ID format" });
+        return;
+      }
+
+      const user = await this.client.getById(decodedId);
+      if (!user) {
+        res.status(404).json({ error: "User not found" });
+        return;
+      }
+
+      res.json({ ...user, _id: encodeHex(user._id) });
+    } catch (error) {
+      next(error); // Passes errors to the error-handling middleware
+    }
+  };
+
+  getByToken = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const token = req.headers.authorization?.split(" ")[1];
+      if (!token) {
+        res.status(401).json({ error: "Authorization token required" });
+        return;
+      }
+
+      const sub = await UserController.verifyToken(token);
       if (sub) {
         const user = await this.getBySub(sub);
-        if (user) return user;
+        if (user) {
+          res.json(user);
+          return;
+        }
       }
-      return null;
-    } catch {
-      return null;
+
+      res.status(404).json({ error: "User not found" });
+    } catch (error) {
+      next(error);
     }
-  }
-  async getByName(name: string): Promise<User | null> {
-    const user = await this.client.getByName(name);
-    if (!user) return null;
-    return { ...user, _id: encodeHex(user._id) };
-  }
+  };
 
   async getByEmail(email: string): Promise<User | null> {
     const user = await this.client.getByEmail(email);
+    if (!user) return null;
+    return { ...user, _id: encodeHex(user._id) };
+  }
+
+  async getByUsername(username: string): Promise<User | null> {
+    const user = await this.client.getByUsername(username);
     if (!user) return null;
     return { ...user, _id: encodeHex(user._id) };
   }
@@ -50,29 +94,6 @@ export class UserController {
     const user = await this.client.getBySub(userSub);
     if (!user) return null;
     return { ...user, _id: encodeHex(user._id) };
-  }
-  async create(user: Omit<User, "_id">): Promise<InsertOneResultWithoutId> {
-    const createdUser: InsertOneResult = await this.client.create(user);
-    return {
-      ...createdUser,
-      insertedId: encodeHex(createdUser.insertedId),
-    };
-  }
-
-  async update(id: string, user: Partial<User>): Promise<User | null> {
-    const decodedId = decodeHex(id);
-    if (!decodedId) return null;
-
-    const existingUser = await this.client.getById(decodedId);
-    if (!existingUser) throw new Error("404");
-
-    const updatedUser = await this.client.update(decodedId, {
-      ...user,
-      _id: decodedId,
-    });
-    if (!updatedUser) return null;
-
-    return { ...updatedUser, _id: encodeHex(updatedUser._id) };
   }
 
   private static async verifyToken(token: string): Promise<string | null> {
@@ -83,4 +104,49 @@ export class UserController {
       return null;
     }
   }
+
+  async create(user: Omit<User, "_id">): Promise<InsertOneResultWithoutId> {
+    const createdUser: InsertOneResult = await this.client.create(user);
+    return {
+      ...createdUser,
+      insertedId: encodeHex(createdUser.insertedId),
+    };
+  }
+
+  update = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params;
+      const decodedId = decodeHex(id);
+      if (!decodedId) {
+        res.status(400).json({ error: "Invalid user ID" });
+        return;
+      }
+
+      const userUpdates: Partial<User> = req.body;
+      const existingUser = await this.client.getById(decodedId);
+
+      if (!existingUser) {
+        res.status(404).json({ error: "User not found" });
+        return;
+      }
+
+      const updatedUser = await this.client.update(decodedId, {
+        ...userUpdates,
+        _id: decodedId,
+      });
+
+      if (!updatedUser) {
+        res.status(500).json({ error: "Failed to update user" });
+        return;
+      }
+
+      res.json({ ...updatedUser, _id: encodeHex(updatedUser._id) });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

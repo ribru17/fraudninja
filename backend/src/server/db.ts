@@ -14,13 +14,11 @@ export async function initializeClients() {
   await client.connect();
   db = client.db();
 
-  // Initialize your clients here
   userClient = new UserClient(db);
   exerciseClient = new ExerciseClient(db);
 
   console.log("MongoDB connected");
 
-  // Return the initialized clients for use in controllers or routes
   return { db, userClient, exerciseClient };
 }
 
