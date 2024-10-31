@@ -47,6 +47,7 @@ function PlayPage() {
     () =>
       Array(db.length)
         .fill(0)
+        // biome-ignore lint/suspicious/noExplicitAny: Type not exposed by library
         .map((_) => createRef<any>()),
     [],
   );
@@ -68,7 +69,7 @@ function PlayPage() {
             preventSwipe={['down', 'up']}
             className='card'
             ref={childRefs[index]}
-            key={index}
+            key={card.text}
           >
             <Container className='innerCard'>
               {card.text}
