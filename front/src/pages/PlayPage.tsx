@@ -1,28 +1,46 @@
-import { Button, Container } from '@mui/material';
-import { createRef, useMemo, useRef, useState } from 'react';
-import TinderCard from 'react-tinder-card';
-import './PlayPage.css';
+import TinderCard from "react-tinder-card";
+import { Exercise } from "@shared_types";
+import { useEffect, useRef, useState, createRef, useMemo } from "react";
+import { useAppSelector } from "../redux/hook";
+import ApiSdk from "../api/apiSdk";
+import { Button, Container } from "@mui/material";
+import "./PlayPage.css";
 
 // TODO: Populate with data from the backend.
 const db = [
   {
-    text: 'TEXT',
+    text: "TEXT",
   },
   {
-    text: 'MORE TEXT',
+    text: "MORE TEXT",
   },
   {
-    text: 'HERE TEXT',
+    text: "HERE TEXT",
   },
   {
-    text: 'STUFF HERE',
+    text: "STUFF HERE",
   },
   {
-    text: 'TESTING STUFF',
+    text: "TESTING STUFF",
   },
 ];
 
 function PlayPage() {
+  const [exercise, setExercise] = useState<Exercise>();
+  const hasFetched = useRef(false);
+  const api = new ApiSdk();
+  const { token } = useAppSelector((state) => state.session);
+
+  useEffect(() => {
+    if (!hasFetched.current) {
+      hasFetched.current = true;
+      api.getOneRandomExercise(token).then((exercise) => {
+        setExercise(exercise);
+        console.log(exercise);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const currentIndexRef = useRef(currentIndex);
 
@@ -33,7 +51,7 @@ function PlayPage() {
   const outOfFrame = (idx: number) => {
     console.log(
       `card with index ${idx} left the screen!`,
-      currentIndexRef.current,
+      currentIndexRef.current
     );
     currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
   };
@@ -49,7 +67,7 @@ function PlayPage() {
         .fill(0)
         // biome-ignore lint/suspicious/noExplicitAny: Type not exposed by library
         .map((_) => createRef<any>()),
-    [],
+    []
   );
 
   const updateCurrentIndex = (val: number) => {
@@ -61,32 +79,30 @@ function PlayPage() {
 
   return (
     <Container>
-      <Container className='cardContainer'>
+      <Container className="cardContainer">
         {db.map((card, index) => (
           <TinderCard
             onSwipe={(dir) => swiped(dir, index)}
             onCardLeftScreen={() => outOfFrame(index)}
-            preventSwipe={['down', 'up']}
-            className='card'
+            preventSwipe={["down", "up"]}
+            className="card"
             ref={childRefs[index]}
             key={card.text}
           >
-            <Container className='innerCard'>
-              {card.text}
-            </Container>
+            <Container className="innerCard">{card.text}</Container>
           </TinderCard>
         ))}
       </Container>
-      <Container className='buttons'>
+      <Container className="buttons">
         <Button
-          style={{ backgroundColor: !canSwipe ? '#c3c4d3' : 'red' }}
-          onClick={() => swipe('left')}
+          style={{ backgroundColor: !canSwipe ? "#c3c4d3" : "red" }}
+          onClick={() => swipe("left")}
         >
           Scam!
         </Button>
         <Button
-          style={{ backgroundColor: !canSwipe ? '#c3c4d3' : 'green' }}
-          onClick={() => swipe('right')}
+          style={{ backgroundColor: !canSwipe ? "#c3c4d3" : "green" }}
+          onClick={() => swipe("right")}
         >
           Not a scam
         </Button>

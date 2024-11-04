@@ -1,10 +1,11 @@
 import { Credentials, User } from "@shared_types";
-import { loginUser, signupUser } from "../api";
 import { setToken } from "../redux/slices/sessionSlice";
+import ApiSdk from "../api/apiSdk";
 
 export const login = (credentials: Credentials) => async (dispatch: any) => {
   try {
-    const token = await loginUser(credentials);
+    const api = new ApiSdk();
+    const token = await api.loginUser(credentials);
     dispatch(setToken(token));
     return token;
   } catch (error) {
@@ -15,7 +16,8 @@ export const login = (credentials: Credentials) => async (dispatch: any) => {
 
 export const signup = async (user: Omit<User, "_id">) => {
   try {
-    await signupUser(user);
+    const api = new ApiSdk();
+    await api.signupUser(user);
   } catch (error) {
     console.error("Signup action failed", error);
     throw error;

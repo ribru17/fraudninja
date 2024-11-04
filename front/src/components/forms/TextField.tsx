@@ -12,7 +12,6 @@ export type TextFieldProps = (StandardTextFieldProps | OutlinedTextFieldProps) &
 function TextField({ name, helperText, onChange, ...props }: TextFieldProps) {
   const [field, meta] = useField(name);
   const showError = Boolean(meta.error) && meta.touched;
-  console.log("shwoError email", showError, name);
   return (
     <TextFieldMui
       {...props}
