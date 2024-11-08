@@ -43,25 +43,20 @@ class ApiSdk {
     }
   };
 
-  getAllExercises = async (token: string): Promise<Exercise[]> => {
+  getRandomExercises = async (
+    token: string,
+    count?: number
+  ): Promise<Exercise[]> => {
     try {
-      const response = await this.http.get("exercises/all", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await this.http.get(
+        `exercises${count ? "?count=" + count : ""}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       return response.data;
     } catch (error) {
       throw new Error("Fetching all the exercises failed");
-    }
-  };
-
-  getOneRandomExercise = async (token: string): Promise<Exercise> => {
-    try {
-      const response = await this.http.get("exercises/random", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error("Fetching one exercise failed");
     }
   };
 }

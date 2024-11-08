@@ -5,28 +5,10 @@ import { useAppSelector } from "../redux/hook";
 import ApiSdk from "../api/apiSdk";
 import { Button, Container } from "@mui/material";
 import "./PlayPage.css";
-
-// TODO: Populate with data from the backend.
-const db = [
-  {
-    text: "TEXT",
-  },
-  {
-    text: "MORE TEXT",
-  },
-  {
-    text: "HERE TEXT",
-  },
-  {
-    text: "STUFF HERE",
-  },
-  {
-    text: "TESTING STUFF",
-  },
-];
+import FullScreenSpinner from "../components/FullScreenSpinner";
 
 function PlayPage() {
-  const [exercise, setExercise] = useState<Exercise>();
+  const [exercises, setExercises] = useState<Exercise[]>([]);
   const hasFetched = useRef(false);
   const api = new ApiSdk();
   const { token } = useAppSelector((state) => state.session);
@@ -34,15 +16,24 @@ function PlayPage() {
   useEffect(() => {
     if (!hasFetched.current) {
       hasFetched.current = true;
-      api.getOneRandomExercise(token).then((exercise) => {
-        setExercise(exercise);
-        console.log(exercise);
+      api.getRandomExercises(token).then((exercises) => {
+        setExercises(exercises);
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-  const [currentIndex, setCurrentIndex] = useState(db.length - 1);
+
+  const [currentIndex, setCurrentIndex] = useState(exercises.length - 1);
   const currentIndexRef = useRef(currentIndex);
+
+  useEffect(() => {
+    setCurrentIndex(exercises.length - 1);
+    currentIndexRef.current = exercises.length - 1;
+  }, [exercises]);
+
+  const updateCurrentIndex = (val: number) => {
+    setCurrentIndex(val);
+    currentIndexRef.current = val;
+  };
 
   const swiped = (_direction: string, index: number) => {
     updateCurrentIndex(index - 1);
@@ -53,43 +44,42 @@ function PlayPage() {
       `card with index ${idx} left the screen!`,
       currentIndexRef.current
     );
-    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
+    if (currentIndexRef.current >= idx && childRefs[idx].current) {
+      childRefs[idx].current.restoreCard();
+    }
   };
 
   const swipe = async (dir: string) => {
-    if (canSwipe && currentIndex < db.length) {
+    if (canSwipe && currentIndex < exercises.length) {
       await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
     }
   };
+
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(exercises.length)
         .fill(0)
-        // biome-ignore lint/suspicious/noExplicitAny: Type not exposed by library
-        .map((_) => createRef<any>()),
-    []
+        .map(() => createRef<any>()),
+    [exercises.length]
   );
 
-  const updateCurrentIndex = (val: number) => {
-    setCurrentIndex(val);
-    currentIndexRef.current = val;
-  };
-
   const canSwipe = currentIndex >= 0;
+
+  if (!exercises.length) return <FullScreenSpinner />;
 
   return (
     <Container>
       <Container className="cardContainer">
-        {db.map((card, index) => (
+        {exercises.map((card, index) => (
           <TinderCard
             onSwipe={(dir) => swiped(dir, index)}
             onCardLeftScreen={() => outOfFrame(index)}
             preventSwipe={["down", "up"]}
             className="card"
             ref={childRefs[index]}
-            key={card.text}
+            key={card.message}
           >
-            <Container className="innerCard">{card.text}</Container>
+            <Container className="innerCard">{card.message}</Container>
           </TinderCard>
         ))}
       </Container>
