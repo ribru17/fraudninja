@@ -1,28 +1,28 @@
-import { Formik, Form, FormikHelpers } from "formik";
-import { Button, Grid2, Typography } from "@mui/material";
-import TextField from "../components/forms/TextField";
-import { Credentials } from "@shared_types";
-import { login } from "../actions/session";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useAppDispatch } from "../redux/hook";
+import { Formik, Form, FormikHelpers } from 'formik';
+import { Button, Grid2, Typography } from '@mui/material';
+import TextField from '../components/forms/TextField';
+import { Credentials } from '@shared_types';
+import { login } from '../actions/session';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useAppDispatch } from '../redux/hook';
 
 function LoginPage() {
   const dispatch = useAppDispatch();
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string>('');
 
   const handleOnSubmit = async (
     values: Credentials,
-    { setSubmitting }: FormikHelpers<Credentials>
+    { setSubmitting }: FormikHelpers<Credentials>,
   ) => {
     try {
       const token = await dispatch(login(values));
       if (token) {
-        console.log("Logged in successfully");
+        console.log('Logged in successfully');
       }
     } catch (error) {
-      console.error("Error when trying to connect", error);
-      setError("Password or email incorrect");
+      console.error('Error when trying to connect', error);
+      setError('Password or email incorrect');
     } finally {
       setSubmitting(false);
     }
@@ -40,7 +40,7 @@ function LoginPage() {
           </Typography>
         )}
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ email: '', password: '' }}
           onSubmit={handleOnSubmit}
         >
           {({ isSubmitting }) => (
@@ -75,7 +75,7 @@ function LoginPage() {
         </Formik>
 
         <Grid2 mt={2}>
-          If you don't already have an account, click{" "}
+          If you don't already have an account, click{' '}
           <Link to="/signup">here</Link>
         </Grid2>
       </Grid2>

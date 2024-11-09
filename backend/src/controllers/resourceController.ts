@@ -1,8 +1,8 @@
-import type { Resource } from "@shared_types";
-import { decodeHex, encodeHex } from "../utils";
-import type { ResourceClient } from "../clients";
-import type { InsertOneResult } from "mongodb";
-import type { Request, NextFunction, Response } from "express";
+import type { Resource } from '@shared_types';
+import { decodeHex, encodeHex } from '../utils';
+import type { ResourceClient } from '../clients';
+import type { InsertOneResult } from 'mongodb';
+import type { Request, NextFunction, Response } from 'express';
 
 export class ResourceController {
   constructor(private readonly client: ResourceClient) {}
@@ -10,12 +10,12 @@ export class ResourceController {
   getAll = async (
     _: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
       const resources = await this.client.getAll();
       if (!resources) {
-        res.status(404).json({ error: "Resources not found" });
+        res.status(404).json({ error: 'Resources not found' });
         return;
       }
       res.json(resources);
@@ -28,19 +28,19 @@ export class ResourceController {
   getById = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
       const { id } = req.params;
       const decodedId = decodeHex(id);
       if (!decodedId) {
-        res.status(400).json({ error: "Invalid ID format" });
+        res.status(400).json({ error: 'Invalid ID format' });
         return;
       }
 
       const resource = await this.client.getById(decodedId);
       if (!resource) {
-        res.status(404).json({ error: "Resource not found" });
+        res.status(404).json({ error: 'Resource not found' });
         return;
       }
 
@@ -53,14 +53,14 @@ export class ResourceController {
   create = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
       const resourceData = req.body;
       const imageFile = req.file;
       // Convert image buffer to base64 if it exists
       const imageBase64 = imageFile
-        ? imageFile.buffer.toString("base64")
+        ? imageFile.buffer.toString('base64')
         : undefined;
 
       const newResource = {
@@ -68,9 +68,8 @@ export class ResourceController {
         image: imageBase64, // Store as base64 string
       };
 
-      const createdResource: InsertOneResult = await this.client.create(
-        newResource
-      );
+      const createdResource: InsertOneResult =
+        await this.client.create(newResource);
 
       res.status(201).json({
         ...createdResource,
@@ -84,13 +83,13 @@ export class ResourceController {
   update = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
       const { id } = req.params;
       const decodedId = decodeHex(id);
       if (!decodedId) {
-        res.status(400).json({ error: "Invalid resource ID" });
+        res.status(400).json({ error: 'Invalid resource ID' });
         return;
       }
 
@@ -98,7 +97,7 @@ export class ResourceController {
       const existingResource = await this.client.getById(decodedId);
 
       if (!existingResource) {
-        res.status(404).json({ error: "Resource not found" });
+        res.status(404).json({ error: 'Resource not found' });
         return;
       }
 
@@ -108,7 +107,7 @@ export class ResourceController {
       });
 
       if (!updatedResource) {
-        res.status(500).json({ error: "Failed to update resource" });
+        res.status(500).json({ error: 'Failed to update resource' });
         return;
       }
 

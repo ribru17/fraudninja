@@ -1,20 +1,20 @@
-import type { Resource } from "@shared_types";
+import type { Resource } from '@shared_types';
 import {
   type Collection,
   type Db,
   type DeleteResult,
   type InsertOneResult,
   ObjectId,
-} from "mongodb";
+} from 'mongodb';
 
-export type ResourceDocument = Omit<Resource, "_id"> & {
+export type ResourceDocument = Omit<Resource, '_id'> & {
   _id: ObjectId;
 };
 
 export class ResourceClient {
   private collection: Collection<ResourceDocument>;
   constructor(db: Db) {
-    this.collection = db.collection("resource");
+    this.collection = db.collection('resource');
   }
 
   async getAll(): Promise<ResourceDocument[]> {
@@ -25,7 +25,7 @@ export class ResourceClient {
     return this.collection.findOne({ _id });
   }
 
-  async create(category: Omit<Resource, "_id">): Promise<InsertOneResult> {
+  async create(category: Omit<Resource, '_id'>): Promise<InsertOneResult> {
     const newResource: ResourceDocument = {
       ...category,
       _id: new ObjectId(),
@@ -35,13 +35,13 @@ export class ResourceClient {
 
   async update(
     _id: ObjectId,
-    resource: Partial<ResourceDocument>
+    resource: Partial<ResourceDocument>,
   ): Promise<ResourceDocument | null> {
     const result: ResourceDocument | null =
       await this.collection.findOneAndUpdate(
         { _id },
         { $set: resource },
-        { returnDocument: "after" }
+        { returnDocument: 'after' },
       );
 
     return result;

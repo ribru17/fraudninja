@@ -1,9 +1,9 @@
-import { ReactNode, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "../redux/hook";
-import { setIsLoggedIn, setUser } from "../redux/slices";
-import { useLocation, useNavigate, Navigate } from "react-router-dom";
-import ApiSdk from "../api/apiSdk";
+import { ReactNode, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../redux/hook';
+import { setIsLoggedIn, setUser } from '../redux/slices';
+import { useLocation, useNavigate, Navigate } from 'react-router-dom';
+import ApiSdk from '../api/apiSdk';
 
 export function WithSession({
   children,
@@ -22,18 +22,18 @@ export function WithSession({
         if (user) {
           dispatch(setUser(user));
           dispatch(setIsLoggedIn(true));
-          if (location.pathname === "/login") {
-            navigate("/");
+          if (location.pathname === '/login') {
+            navigate('/');
           }
         } else {
           dispatch(
             setUser({
-              _id: "",
-              email: "",
-              password: "",
-              sub: "",
-              username: "",
-            })
+              _id: '',
+              email: '',
+              password: '',
+              sub: '',
+              username: '',
+            }),
           );
           dispatch(setIsLoggedIn(false));
         }
@@ -41,12 +41,12 @@ export function WithSession({
     } else {
       dispatch(
         setUser({
-          _id: "",
-          email: "",
-          password: "",
-          sub: "",
-          username: "",
-        })
+          _id: '',
+          email: '',
+          password: '',
+          sub: '',
+          username: '',
+        }),
       );
       dispatch(setIsLoggedIn(false));
     }
@@ -55,8 +55,8 @@ export function WithSession({
 
   if (
     !isLoggedIn &&
-    location.pathname !== "/login" &&
-    location.pathname !== "/signup"
+    location.pathname !== '/login' &&
+    location.pathname !== '/signup'
   ) {
     return <Navigate to="/login" replace />;
   }

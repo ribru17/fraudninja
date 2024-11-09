@@ -2,9 +2,9 @@ import {
   OutlinedTextFieldProps,
   StandardTextFieldProps,
   TextField as TextFieldMui,
-} from "@mui/material";
-import { GenericFormikFieldProps } from "./interface";
-import { useField } from "formik";
+} from '@mui/material';
+import { GenericFormikFieldProps } from './interface';
+import { useField } from 'formik';
 
 export type TextFieldProps = (StandardTextFieldProps | OutlinedTextFieldProps) &
   GenericFormikFieldProps;
@@ -17,12 +17,12 @@ function TextField({ name, helperText, onChange, ...props }: TextFieldProps) {
       {...props}
       {...field}
       variant="outlined"
-      value={field.value ?? ""}
+      value={field.value ?? ''}
       onChange={(event) => {
         if (onChange) onChange(event);
         field.onChange(event);
       }}
-      helperText={showError ? meta.error ?? "" : helperText}
+      helperText={showError ? (meta.error ?? '') : helperText}
       error={showError}
     />
   );

@@ -1,7 +1,7 @@
-import type React from "react";
-import { useNavigate } from "react-router-dom";
-import { Button, Box } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import type React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button, Box } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const BackButton: React.FC = () => {
   const navigate = useNavigate();
@@ -18,8 +18,8 @@ const BackButton: React.FC = () => {
         startIcon={<ArrowBackIcon />}
         onClick={handleBackClick}
         sx={{
-          textTransform: "none",
-          fontSize: "1rem",
+          textTransform: 'none',
+          fontSize: '1rem',
         }}
       >
         Go Back

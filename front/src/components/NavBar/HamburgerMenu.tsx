@@ -1,10 +1,10 @@
-import MenuIcon from "@mui/icons-material/Menu";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import { useState, MouseEvent } from "react";
-import NavButton from "./NavButton";
-import { Button } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { useState, MouseEvent } from 'react';
+import NavButton from './NavButton';
+import { Button } from '@mui/material';
 
 interface HamburgerMenuProps {
   onSignOutClick: () => void;
@@ -23,7 +23,7 @@ function HamburgerMenu({ onSignOutClick }: HamburgerMenuProps) {
     <div>
       <IconButton onClick={handleClick} disableRipple>
         <div className="">
-          <MenuIcon fontSize="large" style={{ color: "#fdf8f1" }} />
+          <MenuIcon fontSize="large" style={{ color: '#fdf8f1' }} />
         </div>
       </IconButton>
       <Menu
@@ -31,13 +31,13 @@ function HamburgerMenu({ onSignOutClick }: HamburgerMenuProps) {
         anchorEl={anchorEl}
         onClose={handleClose}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
+          vertical: 'top',
+          horizontal: 'center',
         }}
         PaperProps={{
           style: {
-            width: "fit-content",
-            zIndex: "99999",
+            width: 'fit-content',
+            zIndex: '99999',
           },
         }}
       >

@@ -1,24 +1,24 @@
-import { Container } from "@mui/material";
+import { Container } from '@mui/material';
 
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
-} from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import PlayPage from "./pages/PlayPage";
-import LoginPage from "./pages/Login";
-import SignupPage from "./pages/SignupPage";
-import { WithSession } from "./components/WithSession";
-import { SnackbarProvider } from "notistack";
-import { Suspense } from "react";
-import FullScreenSpinner from "./components/FullScreenSpinner";
-import { withStore } from "./components/withStore";
-import AppHeader from "./components/NavBar/AppHeader";
-import { useAppDispatch } from "./redux/hook";
-import { setToken } from "./redux/slices";
-import ResourcePage from "./pages/ResourcePage";
+} from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import PlayPage from './pages/PlayPage';
+import LoginPage from './pages/Login';
+import SignupPage from './pages/SignupPage';
+import { WithSession } from './components/WithSession';
+import { SnackbarProvider } from 'notistack';
+import { Suspense } from 'react';
+import FullScreenSpinner from './components/FullScreenSpinner';
+import { withStore } from './components/withStore';
+import AppHeader from './components/NavBar/AppHeader';
+import { useAppDispatch } from './redux/hook';
+import { setToken } from './redux/slices';
+import ResourcePage from './pages/ResourcePage';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ function App() {
         <SnackbarProvider maxSnack={3} preventDuplicate>
           <Container>
             <AppHeader
-              onSignOutClick={() => dispatch(setToken(""))}
+              onSignOutClick={() => dispatch(setToken(''))}
             ></AppHeader>
             <Suspense fallback={<FullScreenSpinner />}>
               <Container maxWidth="xl" sx={{ mt: 4 }}>

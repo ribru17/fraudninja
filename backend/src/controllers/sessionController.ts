@@ -1,9 +1,9 @@
-import { Credentials, User } from "@shared_types";
-import bcrypt from "bcrypt";
-import { UserController } from "./userController";
-import { JWT_KEY } from "../settings";
-import jwt from "jsonwebtoken";
-import { Request, Response, NextFunction } from "express";
+import { Credentials, User } from '@shared_types';
+import bcrypt from 'bcrypt';
+import { UserController } from './userController';
+import { JWT_KEY } from '../settings';
+import jwt from 'jsonwebtoken';
+import { Request, Response, NextFunction } from 'express';
 
 export class SessionController {
   constructor(private readonly userController: UserController) {}
@@ -11,21 +11,21 @@ export class SessionController {
   verifyAuthAndAttachUser = (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): void => {
     const authHeader = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      res.status(401).send("Unauthorized");
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      res.status(401).send('Unauthorized');
       return;
     }
-    const token = authHeader.split(" ")[1];
+    const token = authHeader.split(' ')[1];
     try {
       const decoded = jwt.verify(token, JWT_KEY);
       (req as any).user = { sub: (decoded as any).sub };
       next();
     } catch (err) {
-      res.status(401).send("Invalid token");
+      res.status(401).send('Invalid token');
       return;
     }
   };
@@ -39,14 +39,14 @@ export class SessionController {
           res.status(200).json(user);
           return;
         }
-        res.status(404).send("User not found");
+        res.status(404).send('User not found');
         return;
       }
-      res.status(400).send("User sub not found");
+      res.status(400).send('User sub not found');
       return;
     } catch (error: any) {
       console.error(error);
-      res.status(500).send("Server error");
+      res.status(500).send('Server error');
       return;
     }
   };
@@ -57,34 +57,34 @@ export class SessionController {
       const user = await this.userController.getByEmail(credentials.email);
 
       if (!user) {
-        return res.status(401).json({ message: "User not found" });
+        return res.status(401).json({ message: 'User not found' });
       }
 
       const passwordMatch = await bcrypt.compare(
         credentials.password,
-        user.password
+        user.password,
       );
       if (!passwordMatch) {
         return res
           .status(401)
-          .json({ message: "Incorrect username or password" });
+          .json({ message: 'Incorrect username or password' });
       }
 
       const token = jwt.sign({ sub: user.sub }, JWT_KEY, {
-        algorithm: "HS256",
+        algorithm: 'HS256',
       });
       return res.status(200).json(token);
     } catch (error: any) {
-      return res.status(500).json({ message: "Server error" });
+      return res.status(500).json({ message: 'Server error' });
     }
   };
 
-  signup = async (req: { body: Omit<User, "_id"> }, res: any) => {
+  signup = async (req: { body: Omit<User, '_id'> }, res: any) => {
     const partialUser = req.body;
     const user = await this.userController.getByEmail(partialUser.email);
 
     if (user) {
-      res.status(409).json({ message: "Already an account with this email" });
+      res.status(409).json({ message: 'Already an account with this email' });
       return;
     }
 
@@ -105,7 +105,7 @@ export class SessionController {
       if (error instanceof Error) {
         res.status(409).json({ message: error.message });
       } else {
-        res.status(409).json({ message: "Unknown error" });
+        res.status(409).json({ message: 'Unknown error' });
       }
     }
   };

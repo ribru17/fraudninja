@@ -1,0 +1,27 @@
+name: Check Formatting
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+
+jobs:
+  format:
+    name: Check Prettier formatting
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm install -g npm
+      - run: npm install prettier
+      - run: npx prettier --check "**/*.{js,jsx,ts,tsx,md,css}"

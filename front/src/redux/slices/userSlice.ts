@@ -1,5 +1,5 @@
-import { User } from "@shared_types";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User } from '@shared_types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
   userInfo: User;
@@ -7,16 +7,16 @@ interface UserState {
 
 const initialState: UserState = {
   userInfo: {
-    _id: "",
-    email: "",
-    password: "",
-    sub: "",
-    username: "",
+    _id: '',
+    email: '',
+    password: '',
+    sub: '',
+    username: '',
   },
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
