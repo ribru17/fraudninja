@@ -1,14 +1,14 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { sessionSlice, userSlice } from "./slices";
-import storage from "redux-persist/lib/storage";
-import { persistReducer, persistStore } from "redux-persist";
-import { combineReducers } from "redux";
+import { configureStore } from '@reduxjs/toolkit';
+import { sessionSlice, userSlice } from './slices';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
+import { combineReducers } from 'redux';
 
 // Create a persist configuration
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
-  whitelist: ["session", "user"],
+  whitelist: ['session', 'user'],
 };
 
 // Combine your reducers

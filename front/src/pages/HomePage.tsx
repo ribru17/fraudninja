@@ -1,5 +1,5 @@
-import { Container, Typography, Paper, Button, Grid2 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Container, Typography, Paper, Button, Grid2 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function HomePage() {
             <Button
               variant="contained"
               size="large"
-              onClick={() => navigate("/play")}
+              onClick={() => navigate('/play')}
             >
               Play
             </Button>

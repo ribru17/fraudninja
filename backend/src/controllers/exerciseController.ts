@@ -1,5 +1,5 @@
-import { ExerciseClient, EmailDocument, TextDocument } from "../clients";
-import { Request, NextFunction, Response } from "express";
+import { ExerciseClient, EmailDocument, TextDocument } from '../clients';
+import { Request, NextFunction, Response } from 'express';
 
 export class ExerciseController {
   constructor(private readonly client: ExerciseClient) {}
@@ -11,12 +11,12 @@ export class ExerciseController {
   getAllExercises = async (
     _: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
       const exercises = await this.client.getAllExercises();
       if (!exercises) {
-        res.status(404).json({ error: "Exercises not found" });
+        res.status(404).json({ error: 'Exercises not found' });
         return;
       }
       res.json(exercises);
@@ -49,12 +49,12 @@ export class ExerciseController {
   getRandomExercise = async (
     _: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
       const exercise = await this.client.getRandomExercise();
       if (!exercise) {
-        res.status(404).json({ error: "Exercises not found" });
+        res.status(404).json({ error: 'Exercises not found' });
         return;
       }
       res.json(exercise);
@@ -67,7 +67,7 @@ export class ExerciseController {
   getRandomExercises = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
       // Get the `count` from the query parameter, defaulting to 10

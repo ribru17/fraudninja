@@ -1,7 +1,7 @@
 // db.ts
-import { Db, MongoClient } from "mongodb";
-import { UserClient, ExerciseClient, ResourceClient } from "../clients";
-import { MONGO_PASSWORD, MONGO_USERNAME } from "../settings";
+import { Db, MongoClient } from 'mongodb';
+import { UserClient, ExerciseClient, ResourceClient } from '../clients';
+import { MONGO_PASSWORD, MONGO_USERNAME } from '../settings';
 
 let db: Db;
 let userClient: UserClient;
@@ -19,7 +19,7 @@ export async function initializeClients() {
   exerciseClient = new ExerciseClient(db);
   resourceClient = new ResourceClient(db);
 
-  console.log("MongoDB connected");
+  console.log('MongoDB connected');
 
   return { db, userClient, exerciseClient, resourceClient };
 }

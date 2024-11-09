@@ -1,10 +1,10 @@
-import { User } from "@shared_types";
-import { InsertOneResultWithoutId, decodeHex, encodeHex } from "../utils";
-import { UserClient } from "../clients";
-import jwt from "jsonwebtoken";
-import { JWT_KEY } from "../settings";
-import { InsertOneResult } from "mongodb";
-import { Request, NextFunction, Response } from "express";
+import { User } from '@shared_types';
+import { InsertOneResultWithoutId, decodeHex, encodeHex } from '../utils';
+import { UserClient } from '../clients';
+import jwt from 'jsonwebtoken';
+import { JWT_KEY } from '../settings';
+import { InsertOneResult } from 'mongodb';
+import { Request, NextFunction, Response } from 'express';
 
 export class UserController {
   constructor(private readonly client: UserClient) {}
@@ -12,7 +12,7 @@ export class UserController {
   getAll = async (
     _: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
       const users = await this.client.getAll();
@@ -29,19 +29,19 @@ export class UserController {
   getById = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
       const { id } = req.params;
       const decodedId = decodeHex(id);
       if (!decodedId) {
-        res.status(400).json({ error: "Invalid ID format" });
+        res.status(400).json({ error: 'Invalid ID format' });
         return;
       }
 
       const user = await this.client.getById(decodedId);
       if (!user) {
-        res.status(404).json({ error: "User not found" });
+        res.status(404).json({ error: 'User not found' });
         return;
       }
 
@@ -54,12 +54,12 @@ export class UserController {
   getByToken = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
-      const token = req.headers.authorization?.split(" ")[1];
+      const token = req.headers.authorization?.split(' ')[1];
       if (!token) {
-        res.status(401).json({ error: "Authorization token required" });
+        res.status(401).json({ error: 'Authorization token required' });
         return;
       }
 
@@ -72,7 +72,7 @@ export class UserController {
         }
       }
 
-      res.status(404).json({ error: "User not found" });
+      res.status(404).json({ error: 'User not found' });
     } catch (error) {
       next(error);
     }
@@ -105,7 +105,7 @@ export class UserController {
     }
   }
 
-  async create(user: Omit<User, "_id">): Promise<InsertOneResultWithoutId> {
+  async create(user: Omit<User, '_id'>): Promise<InsertOneResultWithoutId> {
     const createdUser: InsertOneResult = await this.client.create(user);
     return {
       ...createdUser,
@@ -116,13 +116,13 @@ export class UserController {
   update = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
       const { id } = req.params;
       const decodedId = decodeHex(id);
       if (!decodedId) {
-        res.status(400).json({ error: "Invalid user ID" });
+        res.status(400).json({ error: 'Invalid user ID' });
         return;
       }
 
@@ -130,7 +130,7 @@ export class UserController {
       const existingUser = await this.client.getById(decodedId);
 
       if (!existingUser) {
-        res.status(404).json({ error: "User not found" });
+        res.status(404).json({ error: 'User not found' });
         return;
       }
 
@@ -140,7 +140,7 @@ export class UserController {
       });
 
       if (!updatedUser) {
-        res.status(500).json({ error: "Failed to update user" });
+        res.status(500).json({ error: 'Failed to update user' });
         return;
       }
 

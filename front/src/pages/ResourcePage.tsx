@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import type React from "react";
-import { Grid2 } from "@mui/material";
-import ResourceBox from "../components/ResourceBox";
-import ContainerPage from "../components/ContainerPage";
-import type { Resource } from "@shared_types";
-import ApiSdk from "../api/apiSdk";
-import { useAppSelector } from "../redux/hook";
-import FullScreenSpinner from "../components/FullScreenSpinner";
+import { useEffect, useRef, useState } from 'react';
+import type React from 'react';
+import { Grid2 } from '@mui/material';
+import ResourceBox from '../components/ResourceBox';
+import ContainerPage from '../components/ContainerPage';
+import type { Resource } from '@shared_types';
+import ApiSdk from '../api/apiSdk';
+import { useAppSelector } from '../redux/hook';
+import FullScreenSpinner from '../components/FullScreenSpinner';
 
 const ResourcePage: React.FC = () => {
   const [resources, setResources] = useState<Resource[]>();
@@ -36,7 +36,7 @@ const ResourcePage: React.FC = () => {
               content={resource.content}
               links={resource.links}
               imageUrl={
-                resource.image ? `data:image/jpeg;base64,${resource.image}` : ""
+                resource.image ? `data:image/jpeg;base64,${resource.image}` : ''
               }
             />
           </Grid2>

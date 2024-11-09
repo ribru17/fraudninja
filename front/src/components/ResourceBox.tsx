@@ -1,4 +1,4 @@
-import type React from "react";
+import type React from 'react';
 import {
   Card,
   CardContent,
@@ -9,8 +9,8 @@ import {
   ListItemIcon,
   ListItemText,
   Link,
-} from "@mui/material";
-import LinkIcon from "@mui/icons-material/Link";
+} from '@mui/material';
+import LinkIcon from '@mui/icons-material/Link';
 
 interface ResourceBoxProps {
   category: string;
@@ -32,9 +32,9 @@ const ResourceBox: React.FC<ResourceBoxProps> = ({
     <Card
       sx={{
         height: 450,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
       }}
     >
       {/* Displaying Image */}
@@ -42,7 +42,7 @@ const ResourceBox: React.FC<ResourceBoxProps> = ({
         component="img"
         height="200"
         image={
-          typeof imageUrl === "string"
+          typeof imageUrl === 'string'
             ? imageUrl
             : `data:image/jpeg;base64,${imageUrl}`
         }
@@ -53,8 +53,8 @@ const ResourceBox: React.FC<ResourceBoxProps> = ({
       <CardContent
         sx={{
           flexGrow: 1,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
         }}
       >
         <Typography

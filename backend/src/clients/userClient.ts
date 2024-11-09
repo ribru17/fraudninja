@@ -1,20 +1,20 @@
-import { User } from "@shared_types";
+import { User } from '@shared_types';
 import {
   Collection,
   Db,
   DeleteResult,
   InsertOneResult,
   ObjectId,
-} from "mongodb";
+} from 'mongodb';
 
-export type UserDocument = Omit<User, "_id"> & {
+export type UserDocument = Omit<User, '_id'> & {
   _id: ObjectId;
 };
 
 export class UserClient {
   private collection: Collection<UserDocument>;
   constructor(db: Db) {
-    this.collection = db.collection("user");
+    this.collection = db.collection('user');
   }
 
   async getAll(): Promise<UserDocument[]> {
@@ -37,7 +37,7 @@ export class UserClient {
     return this.collection.findOne({ sub });
   }
 
-  async create(category: Omit<User, "_id">): Promise<InsertOneResult> {
+  async create(category: Omit<User, '_id'>): Promise<InsertOneResult> {
     const newUser: UserDocument = {
       ...category,
       _id: new ObjectId(),
@@ -47,12 +47,12 @@ export class UserClient {
 
   async update(
     _id: ObjectId,
-    user: Partial<UserDocument>
+    user: Partial<UserDocument>,
   ): Promise<UserDocument | null> {
     const result: UserDocument | null = await this.collection.findOneAndUpdate(
       { _id },
       { $set: user },
-      { returnDocument: "after" }
+      { returnDocument: 'after' },
     );
 
     return result;

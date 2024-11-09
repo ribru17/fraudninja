@@ -1,7 +1,7 @@
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react"; // Import PersistGate
-import FullScreenSpinner from "./FullScreenSpinner";
-import { store as reduxStore, persistor } from "../redux/configureStore";
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'; // Import PersistGate
+import FullScreenSpinner from './FullScreenSpinner';
+import { store as reduxStore, persistor } from '../redux/configureStore';
 
 type Props = {};
 

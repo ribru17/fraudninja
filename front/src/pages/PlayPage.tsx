@@ -1,11 +1,11 @@
-import TinderCard from "react-tinder-card";
-import { Exercise } from "@shared_types";
-import { useEffect, useRef, useState, createRef, useMemo } from "react";
-import { useAppSelector } from "../redux/hook";
-import ApiSdk from "../api/apiSdk";
-import { Button, Container } from "@mui/material";
-import "./PlayPage.css";
-import FullScreenSpinner from "../components/FullScreenSpinner";
+import TinderCard from 'react-tinder-card';
+import { Exercise } from '@shared_types';
+import { useEffect, useRef, useState, createRef, useMemo } from 'react';
+import { useAppSelector } from '../redux/hook';
+import ApiSdk from '../api/apiSdk';
+import { Button, Container } from '@mui/material';
+import './PlayPage.css';
+import FullScreenSpinner from '../components/FullScreenSpinner';
 
 function PlayPage() {
   const [exercises, setExercises] = useState<Exercise[]>([]);
@@ -42,7 +42,7 @@ function PlayPage() {
   const outOfFrame = (idx: number) => {
     console.log(
       `card with index ${idx} left the screen!`,
-      currentIndexRef.current
+      currentIndexRef.current,
     );
     if (currentIndexRef.current >= idx && childRefs[idx].current) {
       childRefs[idx].current.restoreCard();
@@ -60,7 +60,7 @@ function PlayPage() {
       Array(exercises.length)
         .fill(0)
         .map(() => createRef<any>()),
-    [exercises.length]
+    [exercises.length],
   );
 
   const canSwipe = currentIndex >= 0;
@@ -74,7 +74,7 @@ function PlayPage() {
           <TinderCard
             onSwipe={(dir) => swiped(dir, index)}
             onCardLeftScreen={() => outOfFrame(index)}
-            preventSwipe={["down", "up"]}
+            preventSwipe={['down', 'up']}
             className="card"
             ref={childRefs[index]}
             key={card.message}
@@ -85,14 +85,14 @@ function PlayPage() {
       </Container>
       <Container className="buttons">
         <Button
-          style={{ backgroundColor: !canSwipe ? "#c3c4d3" : "red" }}
-          onClick={() => swipe("left")}
+          style={{ backgroundColor: !canSwipe ? '#c3c4d3' : 'red' }}
+          onClick={() => swipe('left')}
         >
           Scam!
         </Button>
         <Button
-          style={{ backgroundColor: !canSwipe ? "#c3c4d3" : "green" }}
-          onClick={() => swipe("right")}
+          style={{ backgroundColor: !canSwipe ? '#c3c4d3' : 'green' }}
+          onClick={() => swipe('right')}
         >
           Not a scam
         </Button>

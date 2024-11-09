@@ -1,6 +1,6 @@
-import Hashids from "hashids";
-import { InsertOneResult, ObjectId } from "mongodb";
-import { HASH_ID_SALT } from "../settings";
+import Hashids from 'hashids';
+import { InsertOneResult, ObjectId } from 'mongodb';
+import { HASH_ID_SALT } from '../settings';
 
 const hashids = new Hashids(HASH_ID_SALT);
 
@@ -18,6 +18,6 @@ export function decodeHex(hex: string): ObjectId | undefined {
   return undefined;
 }
 
-export type InsertOneResultWithoutId = Omit<InsertOneResult, "insertedId"> & {
+export type InsertOneResultWithoutId = Omit<InsertOneResult, 'insertedId'> & {
   insertedId: string;
 };

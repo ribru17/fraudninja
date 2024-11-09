@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { scamCategory } from "./scamCategory";
+import { z } from 'zod';
+import { scamCategory } from './scamCategory';
 
 export const resourceSchema = z.object({
   _id: z.string(),
