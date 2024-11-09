@@ -5,6 +5,11 @@ on:
 jobs:
   epics:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      repository-projects: write
     name: Update epic issues
     steps:
       - name: Run epics action
