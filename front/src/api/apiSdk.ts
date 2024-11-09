@@ -1,6 +1,6 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { type AxiosInstance } from "axios";
 import { envConfigs } from "../configs/env";
-import { Credentials, Exercise, User } from "@shared_types";
+import type { Credentials, Exercise, Resource, User } from "@shared_types";
 
 class ApiSdk {
   private readonly http: AxiosInstance;
@@ -57,6 +57,17 @@ class ApiSdk {
       return response.data;
     } catch (error) {
       throw new Error("Fetching all the exercises failed");
+    }
+  };
+
+  getAllResources = async (token: string): Promise<Resource[]> => {
+    try {
+      const response = await this.http.get("resources/all", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error("Fetching all the resources failed");
     }
   };
 }

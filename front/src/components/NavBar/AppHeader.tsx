@@ -29,7 +29,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ onSignOutClick }) => {
         {isLoggedIn && (
           <div style={{ display: "flex", alignItems: "center" }}>
             <NavButton href="/play" label="Play Game" />
-            <NavButton href="/resources" label="Resources" notImplemented />
+            <NavButton href="/resources" label="Resources" />
           </div>
         )}
 

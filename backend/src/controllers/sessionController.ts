@@ -84,7 +84,8 @@ export class SessionController {
     const user = await this.userController.getByEmail(partialUser.email);
 
     if (user) {
-      throw new Error("409");
+      res.status(409).json({ message: "Already an account with this email" });
+      return;
     }
 
     try {

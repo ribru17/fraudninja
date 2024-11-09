@@ -68,7 +68,7 @@ function PlayPage() {
   if (!exercises.length) return <FullScreenSpinner />;
 
   return (
-    <Container>
+    <Container className="restrictedScroll">
       <Container className="cardContainer">
         {exercises.map((card, index) => (
           <TinderCard

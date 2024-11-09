@@ -5,6 +5,7 @@ import { PORT } from "./settings";
 import { initializeClients } from "./server/db";
 import {
   createExerciseRouter,
+  createResourceRouter,
   createSessionRouter,
   createUserRouter,
 } from "./routes";
@@ -14,11 +15,12 @@ dotenv.config();
 const app = express();
 
 initializeClients()
-  .then(({ userClient, exerciseClient }) => {
+  .then(({ userClient, exerciseClient, resourceClient }) => {
     // Register routes with the appropriate clients and controllers
     app.use("/session", createSessionRouter(userClient));
     app.use("/users", createUserRouter(userClient)); // Example for User routes
     app.use("/exercises", createExerciseRouter(exerciseClient));
+    app.use("/resources", createResourceRouter(resourceClient));
     app.listen(PORT || 4000, () => {
       console.log(`Server running on port ${PORT}...`);
     });
