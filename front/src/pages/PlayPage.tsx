@@ -1,11 +1,27 @@
 import TinderCard from 'react-tinder-card';
-import { Exercise } from '@shared_types';
-import { useEffect, useRef, useState, createRef, useMemo } from 'react';
+import type { Exercise } from '@shared_types';
+import { createRef, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppSelector } from '../redux/hook';
 import ApiSdk from '../api/apiSdk';
 import { Button, Container } from '@mui/material';
 import './PlayPage.css';
 import FullScreenSpinner from '../components/FullScreenSpinner';
+
+declare type Direction = 'left' | 'right' | 'up' | 'down';
+
+declare interface TinderCardAPI {
+  /**
+   * Programmatically trigger a swipe of the card in one of the valid directions `'left'`, `'right'`, `'up'` and `'down'`. This function, `swipe`, can be called on a reference of the TinderCard instance. Check the [example](https://github.com/3DJakob/react-tinder-card-demo/blob/master/src/examples/Advanced.js) code for more details on how to use this.
+   *
+   * @param dir The direction in which the card should be swiped. One of: `'left'`, `'right'`, `'up'` and `'down'`.
+   */
+  swipe(dir?: Direction): Promise<void>;
+
+  /**
+   * Restore swiped-card state. Use this function if you want to undo a swiped-card (e.g. you have a back button that shows last swiped card or you have a reset button. The promise is resolved once the card is returned
+   */
+  restoreCard(): Promise<void>;
+}
 
 function PlayPage() {
   const [exercises, setExercises] = useState<Exercise[]>([]);
@@ -46,13 +62,13 @@ function PlayPage() {
       currentIndexRef.current,
     );
     if (currentIndexRef.current >= idx && childRefs[idx].current) {
-      childRefs[idx].current.restoreCard();
+      childRefs[idx].current?.restoreCard();
     }
   };
 
-  const swipe = async (dir: string) => {
+  const swipe = async (dir: Direction) => {
     if (canSwipe && currentIndex < exercises.length) {
-      await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
+      await childRefs[currentIndex].current?.swipe(dir); // Swipe the card!
     }
   };
 
@@ -60,7 +76,7 @@ function PlayPage() {
     () =>
       Array(exercises.length)
         .fill(0)
-        .map(() => createRef<any>()),
+        .map(() => createRef<TinderCardAPI>()),
     [exercises.length],
   );
 
@@ -69,22 +85,22 @@ function PlayPage() {
   if (!exercises.length) return <FullScreenSpinner />;
 
   return (
-    <Container className="restrictedScroll">
-      <Container className="cardContainer">
+    <Container className='restrictedScroll'>
+      <Container className='cardContainer'>
         {exercises.map((card, index) => (
           <TinderCard
             onSwipe={(dir) => swiped(dir, index)}
             onCardLeftScreen={() => outOfFrame(index)}
             preventSwipe={['down', 'up']}
-            className="card"
+            className='card'
             ref={childRefs[index]}
             key={card.message}
           >
-            <Container className="innerCard">{card.message}</Container>
+            <Container className='innerCard'>{card.message}</Container>
           </TinderCard>
         ))}
       </Container>
-      <Container className="buttons">
+      <Container className='buttons'>
         <Button
           style={{ backgroundColor: !canSwipe ? '#c3c4d3' : 'red' }}
           onClick={() => swipe('left')}

@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar } from '@mui/material';
 import { useAppSelector } from '../../redux/hook';
 import NavButton from './NavButton';
@@ -13,14 +13,14 @@ const AppHeader: React.FC<AppHeaderProps> = ({ onSignOutClick }) => {
   const { userInfo } = useAppSelector((state) => state.user);
   const { isLoggedIn } = useAppSelector((state) => state.session);
   return (
-    <AppBar position="static">
+    <AppBar position='static'>
       <Toolbar>
         <Typography
-          variant="h6"
-          component="div"
+          variant='h6'
+          component='div'
           sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}
         >
-          <NavButton href="/" label="Fraud Ninja" />
+          <NavButton href='/' label='Fraud Ninja' />
           {isLoggedIn && (
             <LogoutIcon onClick={onSignOutClick} sx={{ cursor: 'pointer' }} />
           )}
@@ -28,16 +28,16 @@ const AppHeader: React.FC<AppHeaderProps> = ({ onSignOutClick }) => {
 
         {isLoggedIn && (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <NavButton href="/play" label="Play Game" />
-            <NavButton href="/resources" label="Resources" />
+            <NavButton href='/play' label='Play Game' />
+            <NavButton href='/resources' label='Resources' />
           </div>
         )}
 
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <IconButton color="inherit">
+          <IconButton color='inherit'>
             <Avatar />
           </IconButton>
-          <Typography variant="body1" sx={{ mr: 1 }}>
+          <Typography variant='body1' sx={{ mr: 1 }}>
             {userInfo.username}
           </Typography>
         </div>

@@ -1,9 +1,9 @@
 import {
-  OutlinedTextFieldProps,
-  StandardTextFieldProps,
+  type OutlinedTextFieldProps,
+  type StandardTextFieldProps,
   TextField as TextFieldMui,
 } from '@mui/material';
-import { GenericFormikFieldProps } from './interface';
+import type { GenericFormikFieldProps } from './interface';
 import { useField } from 'formik';
 
 export type TextFieldProps = (StandardTextFieldProps | OutlinedTextFieldProps) &
@@ -16,7 +16,7 @@ function TextField({ name, helperText, onChange, ...props }: TextFieldProps) {
     <TextFieldMui
       {...props}
       {...field}
-      variant="outlined"
+      variant='outlined'
       value={field.value ?? ''}
       onChange={(event) => {
         if (onChange) onChange(event);

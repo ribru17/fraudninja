@@ -10,7 +10,7 @@ function FullScreenSpinner() {
         height: '100vh',
       }}
     >
-      <CircularProgress size="10rem"></CircularProgress>
+      <CircularProgress size='10rem' />
     </div>
   );
 }
