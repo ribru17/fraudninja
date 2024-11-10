@@ -20,6 +20,7 @@ function PlayPage() {
         setExercises(exercises);
       });
     }
+    // eslint-disable-next-line
   }, [token]);
 
   const [currentIndex, setCurrentIndex] = useState(exercises.length - 1);

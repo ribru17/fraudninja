@@ -3,7 +3,10 @@
     "start": "concurrently 'npm run start:frontend' 'npm run start:backend'",
     "install": "concurrently 'npm --prefix ./front i' 'npm --prefix ./backend i'",
     "start:frontend": "cd ./front && npm start",
-    "start:backend": "cd ./backend && npm run dev"
+    "check:frontend": "cd ./front && npm run build",
+    "start:backend": "cd ./backend && npm run dev",
+    "check:backend": "cd ./backend && npm run check",
+    "check": "concurrently 'npm run check:frontend' 'npm run check:backend'"
   },
   "devDependencies": {
     "concurrently": "^9.0.1",

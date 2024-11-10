@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "ts-node -r tsconfig-paths/register src/server.ts",
     "build": "tsc",
+    "check": "tsc --noEmit",
     "start": "node dist/server.js"
   },
   "keywords": [],
