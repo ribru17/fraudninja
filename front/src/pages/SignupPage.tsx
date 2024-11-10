@@ -1,7 +1,7 @@
-import { Formik, Form, FormikHelpers } from 'formik';
+import { Form, Formik, type FormikHelpers } from 'formik';
 import { Button, Grid2, Typography } from '@mui/material';
 import TextField from '../components/forms/TextField';
-import { User } from '@shared_types';
+import type { User } from '@shared_types';
 import * as Yup from 'yup';
 import { signup } from '../actions/session';
 import { useNavigate } from 'react-router-dom';
@@ -49,9 +49,9 @@ function SignupPage() {
   });
 
   return (
-    <Grid2 container justifyContent="center">
+    <Grid2 container justifyContent='center'>
       <Grid2 size={{ xs: 12, sm: 8, md: 6, lg: 4 }}>
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography variant='h4' align='center' gutterBottom>
           Create an account
         </Typography>
         <Formik
@@ -67,41 +67,41 @@ function SignupPage() {
           {({ isSubmitting }) => (
             <Form>
               <TextField
-                name="email"
-                label="Email"
-                variant="outlined"
-                margin="normal"
+                name='email'
+                label='Email'
+                variant='outlined'
+                margin='normal'
                 fullWidth
                 autoFocus
               />
               <TextField
-                name="username"
-                label="Username"
-                variant="outlined"
-                margin="normal"
+                name='username'
+                label='Username'
+                variant='outlined'
+                margin='normal'
                 fullWidth
               />
               <TextField
-                type="password"
-                name="password"
-                label="Password"
-                variant="outlined"
-                margin="normal"
+                type='password'
+                name='password'
+                label='Password'
+                variant='outlined'
+                margin='normal'
                 fullWidth
               />
               <TextField
-                type="password"
-                name="confirmPassword"
-                label="Confirm your password"
-                variant="outlined"
-                margin="normal"
+                type='password'
+                name='confirmPassword'
+                label='Confirm your password'
+                variant='outlined'
+                margin='normal'
                 fullWidth
               />
               <Button
                 sx={{ mt: 2 }}
-                type="submit"
-                variant="contained"
-                color="primary"
+                type='submit'
+                variant='contained'
+                color='primary'
                 fullWidth
                 disabled={isSubmitting}
               >

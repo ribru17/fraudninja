@@ -13,11 +13,11 @@ const NavButton = ({ href, label, notImplemented }: NavButtonProps) => {
   return (
     <Tooltip title={notImplemented ? 'Coming soon' : ''}>
       <Button
-        color="inherit"
+        color='inherit'
         component={Link}
         to={!notImplemented ? href : '#'}
       >
-        <span className="">{label}</span>
+        <span className=''>{label}</span>
       </Button>
     </Tooltip>
   );

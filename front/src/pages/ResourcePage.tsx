@@ -27,10 +27,10 @@ const ResourcePage: React.FC = () => {
 
   if (!resources) return <FullScreenSpinner />;
   return (
-    <ContainerPage title="Scam Resources">
+    <ContainerPage title='Scam Resources'>
       <Grid2 container spacing={2}>
         {resources.map((resource) => (
-          <Grid2 size={6} columns={2} flexDirection="row" key={resource._id}>
+          <Grid2 size={6} columns={2} flexDirection='row' key={resource._id}>
             <ResourceBox
               category={resource.category}
               content={resource.content}
