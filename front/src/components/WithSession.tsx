@@ -33,6 +33,8 @@ export function WithSession({
               password: '',
               sub: '',
               username: '',
+              overallScore: 0,
+              graduated: false,
             }),
           );
           dispatch(setIsLoggedIn(false));
@@ -46,6 +48,8 @@ export function WithSession({
           password: '',
           sub: '',
           username: '',
+          overallScore: 0,
+          graduated: false,
         }),
       );
       dispatch(setIsLoggedIn(false));

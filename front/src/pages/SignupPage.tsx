@@ -60,6 +60,8 @@ function SignupPage() {
             username: '',
             password: '',
             confirmPassword: '',
+            overallScore: 0,
+            graduated: false,
           }}
           validationSchema={SignupSchema}
           onSubmit={handleOnSubmit}
