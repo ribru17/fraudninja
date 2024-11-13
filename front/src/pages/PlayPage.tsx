@@ -29,6 +29,15 @@ function PlayPage() {
   const api = new ApiSdk();
   const { token } = useAppSelector((state) => state.session);
 
+  // Disable scrolling only for this specific page
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   useEffect(() => {
     if (!hasFetched.current) {
       hasFetched.current = true;
@@ -85,7 +94,7 @@ function PlayPage() {
   if (!exercises.length) return <FullScreenSpinner />;
 
   return (
-    <Container className='restrictedScroll'>
+    <Container>
       <Container className='cardContainer'>
         {exercises.map((card, index) => (
           <TinderCard
