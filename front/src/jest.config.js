@@ -1,9 +1,8 @@
 // Jest configuration for TypeScript in jest.config.js
 module.exports = {
-    preset: 'ts-jest',
-    testEnvironment: 'node',
-    transform: {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-  };
-  
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
+  },
+};
