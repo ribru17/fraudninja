@@ -2,7 +2,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useState, MouseEvent } from 'react';
+import { useState, type MouseEvent } from 'react';
 import NavButton from './NavButton';
 import { Button } from '@mui/material';
 
@@ -22,8 +22,8 @@ function HamburgerMenu({ onSignOutClick }: HamburgerMenuProps) {
   return (
     <div>
       <IconButton onClick={handleClick} disableRipple>
-        <div className="">
-          <MenuIcon fontSize="large" style={{ color: '#fdf8f1' }} />
+        <div className=''>
+          <MenuIcon fontSize='large' style={{ color: '#fdf8f1' }} />
         </div>
       </IconButton>
       <Menu
@@ -42,7 +42,7 @@ function HamburgerMenu({ onSignOutClick }: HamburgerMenuProps) {
         }}
       >
         <MenuItem onClick={handleClose}>
-          <NavButton label="Profile" href="/" inHamburger notImplemented />
+          <NavButton label='Profile' href='/' inHamburger notImplemented />
         </MenuItem>
         <MenuItem onClick={onSignOutClick}>
           <Button>Logout</Button>

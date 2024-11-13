@@ -2,9 +2,9 @@ import { Container } from '@mui/material';
 
 import {
   BrowserRouter as Router,
-  Routes,
-  Route,
   Navigate,
+  Route,
+  Routes,
 } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import PlayPage from './pages/PlayPage';
@@ -27,18 +27,16 @@ function App() {
       <WithSession>
         <SnackbarProvider maxSnack={3} preventDuplicate>
           <Container>
-            <AppHeader
-              onSignOutClick={() => dispatch(setToken(''))}
-            ></AppHeader>
+            <AppHeader onSignOutClick={() => dispatch(setToken(''))} />
             <Suspense fallback={<FullScreenSpinner />}>
-              <Container maxWidth="xl" sx={{ mt: 4 }}>
+              <Container maxWidth='xl' sx={{ mt: 4 }}>
                 <Routes>
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/signup" element={<SignupPage />} />
-                  <Route path="/play" element={<PlayPage />} />
-                  <Route path="/resources" element={<ResourcePage />} />
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="*" element={<Navigate to="/" />} />
+                  <Route path='/login' element={<LoginPage />} />
+                  <Route path='/signup' element={<SignupPage />} />
+                  <Route path='/play' element={<PlayPage />} />
+                  <Route path='/resources' element={<ResourcePage />} />
+                  <Route path='/' element={<HomePage />} />
+                  <Route path='*' element={<Navigate to='/' />} />
                 </Routes>
               </Container>
             </Suspense>

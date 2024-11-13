@@ -3,8 +3,15 @@
     "start": "concurrently 'npm run start:frontend' 'npm run start:backend'",
     "install": "concurrently 'npm --prefix ./front i' 'npm --prefix ./backend i'",
     "start:frontend": "cd ./front && npm start",
+<<<<<<< HEAD
     "start:backend": "cd ./backend && npm run dev",
     "test": "jest --coverage"
+=======
+    "check:frontend": "cd ./front && npm run build",
+    "start:backend": "cd ./backend && npm run dev",
+    "check:backend": "cd ./backend && npm run check",
+    "check": "concurrently 'npm run check:frontend' 'npm run check:backend'"
+>>>>>>> main
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

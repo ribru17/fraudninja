@@ -1,8 +1,8 @@
-import { ReactNode, useEffect } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../redux/hook';
 import { setIsLoggedIn, setUser } from '../redux/slices';
-import { useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import ApiSdk from '../api/apiSdk';
 
 export function WithSession({
@@ -33,6 +33,8 @@ export function WithSession({
               password: '',
               sub: '',
               username: '',
+              overallScore: 0,
+              graduated: false,
             }),
           );
           dispatch(setIsLoggedIn(false));
@@ -46,6 +48,8 @@ export function WithSession({
           password: '',
           sub: '',
           username: '',
+          overallScore: 0,
+          graduated: false,
         }),
       );
       dispatch(setIsLoggedIn(false));
@@ -58,7 +62,7 @@ export function WithSession({
     location.pathname !== '/login' &&
     location.pathname !== '/signup'
   ) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to='/login' replace />;
   }
 
   return <>{children}</>;
