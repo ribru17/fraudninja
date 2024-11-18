@@ -27,4 +27,6 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run check
-      - run: npm test
+      - run: |
+          cd front
+          npm test  # Run the tests inside the 'front' directory
