@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export enum scamCategories {
+enum scamCategories {
   phishing = 'Phishing',
   job = 'Fake Job Offers',
 }

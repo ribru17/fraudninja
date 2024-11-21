@@ -1,7 +1,7 @@
-import { Form, Formik, type FormikHelpers } from 'formik';
+import { Formik, Form, FormikHelpers } from 'formik';
 import { Button, Grid2, Typography } from '@mui/material';
 import TextField from '../components/forms/TextField';
-import type { Credentials } from '@shared_types';
+import { Credentials } from '@shared_types';
 import { login } from '../actions/session';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -29,13 +29,13 @@ function LoginPage() {
   };
 
   return (
-    <Grid2 container justifyContent='center'>
+    <Grid2 container justifyContent="center">
       <Grid2 size={{ xs: 12, md: 6, sm: 8, lg: 4 }}>
-        <Typography variant='h4' align='center' gutterBottom>
+        <Typography variant="h4" align="center" gutterBottom>
           Login
         </Typography>
         {error && (
-          <Typography variant='caption' color='red'>
+          <Typography variant="caption" color="red">
             {error}
           </Typography>
         )}
@@ -46,25 +46,25 @@ function LoginPage() {
           {({ isSubmitting }) => (
             <Form>
               <TextField
-                name='email'
-                label='Email'
-                variant='outlined'
-                margin='normal'
+                name="email"
+                label="Email"
+                variant="outlined"
+                margin="normal"
                 fullWidth
                 autoFocus
               />
               <TextField
-                type='password'
-                name='password'
-                label='Password'
-                variant='outlined'
-                margin='normal'
+                type="password"
+                name="password"
+                label="Password"
+                variant="outlined"
+                margin="normal"
                 fullWidth
               />
               <Button
-                type='submit'
-                variant='contained'
-                color='primary'
+                type="submit"
+                variant="contained"
+                color="primary"
                 fullWidth
                 disabled={isSubmitting}
               >
@@ -76,7 +76,7 @@ function LoginPage() {
 
         <Grid2 mt={2}>
           If you don't already have an account, click{' '}
-          <Link to='/signup'>here</Link>
+          <Link to="/signup">here</Link>
         </Grid2>
       </Grid2>
     </Grid2>

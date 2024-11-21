@@ -12,8 +12,6 @@ const initialState: UserState = {
     password: '',
     sub: '',
     username: '',
-    overallScore: 0,
-    graduated: false,
   },
 };
 

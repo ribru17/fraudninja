@@ -94,8 +94,6 @@ export class SessionController {
       const newUser = {
         email: partialUser.email,
         username: partialUser.username,
-        overallScore: partialUser.overallScore,
-        graduated: partialUser.graduated,
         password: hashedPassword,
         sub: userSub,
       };

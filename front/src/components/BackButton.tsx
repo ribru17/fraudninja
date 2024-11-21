@@ -11,10 +11,10 @@ const BackButton: React.FC = () => {
   };
 
   return (
-    <Box display='flex' alignItems='center'>
+    <Box display="flex" alignItems="center">
       <Button
-        variant='text'
-        color='primary'
+        variant="text"
+        color="primary"
         startIcon={<ArrowBackIcon />}
         onClick={handleBackClick}
         sx={{

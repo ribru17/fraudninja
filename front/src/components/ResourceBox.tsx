@@ -39,8 +39,8 @@ const ResourceBox: React.FC<ResourceBoxProps> = ({
     >
       {/* Displaying Image */}
       <CardMedia
-        component='img'
-        height='200'
+        component="img"
+        height="200"
         image={
           typeof imageUrl === 'string'
             ? imageUrl
@@ -58,29 +58,29 @@ const ResourceBox: React.FC<ResourceBoxProps> = ({
         }}
       >
         <Typography
-          variant='h5'
-          textAlign='center'
+          variant="h5"
+          textAlign="center"
           marginTop={1}
           marginBottom={1}
         >
           {category}
         </Typography>
-        <Typography variant='body2'>{displayedContent}</Typography>
+        <Typography variant="body2">{displayedContent}</Typography>
 
         {links && (
           <List>
-            {links.map((link) => (
-              <ListItem key={link} disablePadding>
+            {links.map((link, index) => (
+              <ListItem key={index} disablePadding>
                 <ListItemIcon>
-                  <LinkIcon fontSize='small' />
+                  <LinkIcon fontSize="small" />
                 </ListItemIcon>
                 <ListItemText>
                   <Link
                     href={link}
-                    target='_blank'
-                    rel='noopener'
-                    underline='hover'
-                    color='secondary'
+                    target="_blank"
+                    rel="noopener"
+                    underline="hover"
+                    color="secondary"
                   >
                     {link}
                   </Link>

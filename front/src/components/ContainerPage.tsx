@@ -11,10 +11,10 @@ function ContainerPage({ title, children }: ContainerPageProps) {
   return (
     <>
       <BackButton />
-      <Typography variant='h4' align='center' gutterBottom>
+      <Typography variant="h4" align="center" gutterBottom>
         {title}
       </Typography>
-      <Container maxWidth='lg' sx={{ mt: 2 }}>
+      <Container maxWidth="lg" sx={{ mt: 2 }}>
         {children}
       </Container>
     </>

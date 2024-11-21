@@ -4,6 +4,10 @@ body {
   height: 100%;
 }
 
+.restrictedScroll {
+  overflow: hidden;
+}
+
 .cardContainer {
   width: 90vw;
   max-width: 260px;

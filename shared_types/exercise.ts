@@ -1,10 +1,7 @@
-import type { scamCategories } from './scamCategory';
-
 export type Exercise = {
-  type: string;
   label: string;
-  category: scamCategories;
   message: string;
+  difficulty: number;
   feedback: string;
 };
 
