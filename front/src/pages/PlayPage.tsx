@@ -28,6 +28,7 @@ function PlayPage() {
   const hasFetched = useRef(false);
   const api = new ApiSdk();
   const { token } = useAppSelector((state) => state.session);
+  const { userInfo } = useAppSelector((state) => state.user);
 
   // Disable scrolling only for this specific page
   useEffect(() => {
@@ -50,6 +51,14 @@ function PlayPage() {
 
   const [currentIndex, setCurrentIndex] = useState(exercises.length - 1);
   const currentIndexRef = useRef(currentIndex);
+
+  function onUpdateScoreUser(newScore: number) {
+    const userUpdated = { overallScore: newScore };
+    api.updateScoreUser(token, userInfo._id, userUpdated).then((user) => {
+      console.log('user updated', user);
+      // need to update the user info in the redux
+    });
+  }
 
   useEffect(() => {
     setCurrentIndex(exercises.length - 1);
