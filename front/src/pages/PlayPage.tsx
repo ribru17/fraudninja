@@ -1,9 +1,10 @@
 import TinderCard from 'react-tinder-card';
 import type { Exercise } from '@shared_types';
 import { createRef, useEffect, useMemo, useRef, useState } from 'react';
-import { useAppSelector } from '../redux/hook';
+import { useAppDispatch, useAppSelector } from '../redux/hook';
+import { setUser } from '../redux/slices';
 import ApiSdk from '../api/apiSdk';
-import { Button, Container } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import './PlayPage.css';
 import FullScreenSpinner from '../components/FullScreenSpinner';
 
@@ -25,10 +26,13 @@ declare interface TinderCardAPI {
 
 function PlayPage() {
   const [exercises, setExercises] = useState<Exercise[]>([]);
+  const { userInfo } = useAppSelector((state) => state.user);
+  const [score, setScore] = useState<number>(userInfo.overallScore);
   const hasFetched = useRef(false);
   const api = new ApiSdk();
   const { token } = useAppSelector((state) => state.session);
-  const { userInfo } = useAppSelector((state) => state.user);
+
+  const dispatch = useAppDispatch();
 
   // Disable scrolling only for this specific page
   useEffect(() => {
@@ -55,8 +59,10 @@ function PlayPage() {
   function onUpdateScoreUser(newScore: number) {
     const userUpdated = { overallScore: newScore };
     api.updateScoreUser(token, userInfo._id, userUpdated).then((user) => {
-      console.log('user updated', user);
-      // need to update the user info in the redux
+      if (user) {
+        dispatch(setUser(user));
+        setScore(user.overallScore); // score will be updated, so it can be displayed
+      }
     });
   }
 
@@ -104,6 +110,9 @@ function PlayPage() {
 
   return (
     <Container>
+      {/* To BE REMOVED, JUST TO TRY HOW TO UPDATE SCORE */}
+      <Button onClick={() => onUpdateScoreUser(score + 10)}>Test Score</Button>
+      <Typography>Current score : {score}</Typography>
       <Container className='cardContainer' data-testid='cardContainer'>
         {exercises.map((card, index) => (
           <TinderCard
