@@ -25,7 +25,20 @@ const mockStore = configureStore();
 describe('PlayPage', () => {
   beforeEach(async () => {
     // Set up mock Redux state
-    const initialState = { session: { token: 'mock-token' } };
+    const initialState = {
+      session: { token: 'mock-token' },
+      user: {
+        userInfo: {
+          _id: 'mock-id',
+          email: 'mock-email',
+          password: 'mock-password',
+          sub: 'mock-sub',
+          username: 'mock-username',
+          overallScore: 0,
+          graduated: false,
+        },
+      },
+    };
     const store = mockStore(initialState);
 
     // Render PlayPage wrapped in the Redux <Provider>

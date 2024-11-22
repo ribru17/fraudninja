@@ -8,6 +8,7 @@ export function createUserRouter(userClient: UserClient): express.Router {
 
   router.get('/', userController.getAll);
   router.get('/:id', userController.getById);
+  router.put('/:id', userController.update);
 
   return router;
 }
