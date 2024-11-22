@@ -95,7 +95,7 @@ function PlayPage() {
 
   return (
     <Container>
-      <Container className='cardContainer'>
+      <Container className='cardContainer' data-testid='cardContainer'>
         {exercises.map((card, index) => (
           <TinderCard
             onSwipe={(dir) => swiped(dir, index)}
