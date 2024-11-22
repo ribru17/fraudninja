@@ -1,5 +1,5 @@
 import TinderCard from 'react-tinder-card';
-import { scamCategory, type Exercise } from '@shared_types';
+import { type Exercise } from '@shared_types';
 import { createRef, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { setUser } from '../redux/slices';
