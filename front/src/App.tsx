@@ -20,6 +20,7 @@ import { useAppDispatch } from './redux/hook';
 import { setToken } from './redux/slices';
 import ResourcePage from './pages/ResourcePage';
 import FakePlayPage from './pages/FakePlayPage';
+import LeaderBoardPage from './pages/LeaderBoardPage';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -32,11 +33,12 @@ function App() {
           <Suspense fallback={<FullScreenSpinner />}>
             <Container maxWidth='xl' sx={{ mt: 4 }}>
               <Routes>
-                <Route path='/fake-play' element={<FakePlayPage />} />
                 <Route path='/login' element={<LoginPage />} />
+                <Route path='/fake-play' element={<LoginPage />} />
                 <Route path='/signup' element={<SignupPage />} />
                 <Route path='/play' element={<PlayPage />} />
                 <Route path='/resources' element={<ResourcePage />} />
+                <Route path='/leaderboard' element={<LeaderBoardPage />} />
                 <Route path='/' element={<HomePage />} />
                 <Route path='*' element={<Navigate to='/' />} />
               </Routes>
