@@ -6,6 +6,8 @@ import ApiSdk from '../api/apiSdk';
 import { Button, Container, Typography } from '@mui/material';
 import './PlayPage.css';
 import FullScreenSpinner from '../components/FullScreenSpinner';
+import EmailCard from '../components/EmailCard';
+import TextCard from '../components/TextCard';
 
 declare type Direction = 'left' | 'right' | 'up' | 'down';
 
@@ -31,6 +33,14 @@ interface FakeExercise {
   feedback: string;
 }
 
+interface FakeEmail extends FakeExercise {
+  emailSender: string;
+}
+
+interface FakeText extends FakeExercise {
+  phoneNumber: string;
+}
+
 const mockExercices = [
   {
     type: 'email',
@@ -38,11 +48,21 @@ const mockExercices = [
     category: 'job',
     message: 'this is a test',
     feedback: 'this is the feedback',
+    emailSender: 'balalalaa@gmaim.com',
+  },
+  {
+    type: 'text',
+    scam: true,
+    category: 'job',
+    message: 'this is a test',
+    feedback: 'this is the feedback',
+    phoneNumber: '0202020222002',
   },
 ];
 
 function FakePlayPage() {
-  const [exercises, setExercises] = useState<FakeExercise[]>(mockExercices);
+  const [exercises, setExercises] =
+    useState<(FakeEmail | FakeText)[]>(mockExercices);
   const { userInfo } = useAppSelector((state) => state.user);
   const [score, setScore] = useState<number>(userInfo.overallScore);
   const hasFetched = useRef(false);
@@ -131,19 +151,25 @@ function FakePlayPage() {
       <Button onClick={() => onUpdateScoreUser(score + 10)}>Test Score</Button>
       <Typography>Current score : {score}</Typography>
       <Container className='cardContainer'>
-        {exercises.map((card, index) => (
-          <TinderCard
-            onSwipe={(dir) => swiped(dir, index)}
-            onCardLeftScreen={() => outOfFrame(index)}
-            preventSwipe={['down', 'up']}
-            className='card'
-            ref={childRefs[index]}
-            key={card.message}
-          >
-            <Container className='innerCard'>{card.message}</Container>
-          </TinderCard>
-        ))}
+        {exercises.map((card, index) => {
+          return (
+            (card.type === 'email' && <EmailCard key={`email-${index}`} />) ||
+            (card.type === 'text' && <TextCard key={`text-${index}`} />) || (
+              <TinderCard
+                onSwipe={(dir) => swiped(dir, index)}
+                onCardLeftScreen={() => outOfFrame(index)}
+                preventSwipe={['down', 'up']}
+                className='card'
+                ref={childRefs[index]}
+                key={card.message}
+              >
+                <Container className='innerCard'>{card.message}</Container>
+              </TinderCard>
+            )
+          );
+        })}
       </Container>
+
       <Container className='buttons'>
         <Button
           style={{ backgroundColor: !canSwipe ? '#c3c4d3' : 'red' }}
