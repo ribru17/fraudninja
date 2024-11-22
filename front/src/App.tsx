@@ -19,6 +19,7 @@ import AppHeader from './components/NavBar/AppHeader';
 import { useAppDispatch } from './redux/hook';
 import { setToken } from './redux/slices';
 import ResourcePage from './pages/ResourcePage';
+import LeaderBoardPage from './pages/LeaderBoardPage';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ function App() {
                   <Route path='/signup' element={<SignupPage />} />
                   <Route path='/play' element={<PlayPage />} />
                   <Route path='/resources' element={<ResourcePage />} />
+                  <Route path='/leaderboard' element={<LeaderBoardPage />} />
                   <Route path='/' element={<HomePage />} />
                   <Route path='*' element={<Navigate to='/' />} />
                 </Routes>

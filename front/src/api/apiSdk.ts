@@ -43,6 +43,17 @@ class ApiSdk {
     }
   };
 
+  getAllUsers = async (token: string): Promise<User[]> => {
+    try {
+      const { data } = await this.http.get('users/', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return data;
+    } catch {
+      return [];
+    }
+  };
+
   updateScoreUser = async (
     token: string,
     id: string,
