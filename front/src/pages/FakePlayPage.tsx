@@ -1,5 +1,4 @@
 import TinderCard from 'react-tinder-card';
-import { type Exercise } from '@shared_types';
 import { createRef, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { setUser } from '../redux/slices';
@@ -24,18 +23,26 @@ declare interface TinderCardAPI {
   restoreCard(): Promise<void>;
 }
 
+interface FakeExercise {
+  type: string;
+  scam: boolean;
+  category: string;
+  message: string;
+  feedback: string;
+}
+
 const mockExercices = [
   {
     type: 'email',
-    label: 'ham',
-    // category:ScamCategory[1],
+    scam: true,
+    category: 'job',
     message: 'this is a test',
     feedback: 'this is the feedback',
   },
 ];
 
 function FakePlayPage() {
-  const [exercises, setExercises] = useState<Exercise[]>(mockExercices);
+  const [exercises, setExercises] = useState<FakeExercise[]>(mockExercices);
   const { userInfo } = useAppSelector((state) => state.user);
   const [score, setScore] = useState<number>(userInfo.overallScore);
   const hasFetched = useRef(false);

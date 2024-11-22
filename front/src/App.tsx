@@ -34,7 +34,7 @@ function App() {
             <Container maxWidth='xl' sx={{ mt: 4 }}>
               <Routes>
                 <Route path='/login' element={<LoginPage />} />
-                <Route path='/fake-play' element={<LoginPage />} />
+                <Route path='/fake-play' element={<FakePlayPage />} />
                 <Route path='/signup' element={<SignupPage />} />
                 <Route path='/play' element={<PlayPage />} />
                 <Route path='/resources' element={<ResourcePage />} />
