@@ -56,14 +56,15 @@ function PlayPage() {
   const [currentIndex, setCurrentIndex] = useState(exercises.length - 1);
   const currentIndexRef = useRef(currentIndex);
 
-  function onUpdateScoreUser(newScore: number) {
-    const userUpdated = { overallScore: newScore };
-    api.updateScoreUser(token, userInfo._id, userUpdated).then((user) => {
-      if (user) {
-        dispatch(setUser(user));
-        setScore(user.overallScore); // score will be updated, so it can be displayed
-      }
-    });
+  function updateUserScore(newScore: number) {
+    api
+      .updateScoreUser(token, userInfo._id, { overallScore: newScore })
+      .then((user) => {
+        if (user) {
+          dispatch(setUser(user));
+          setScore(user.overallScore); // score will be updated, so it can be displayed
+        }
+      });
   }
 
   useEffect(() => {
@@ -92,7 +93,12 @@ function PlayPage() {
 
   const swipe = async (dir: Direction) => {
     if (canSwipe && currentIndex < exercises.length) {
+      const exercise = exercises[currentIndex];
+      const answeredAsScam = dir === 'left';
       await childRefs[currentIndex].current?.swipe(dir); // Swipe the card!
+      if (exercise.scam === answeredAsScam) {
+        updateUserScore(score + 10);
+      }
     }
   };
 
@@ -110,8 +116,6 @@ function PlayPage() {
 
   return (
     <Container>
-      {/* To BE REMOVED, JUST TO TRY HOW TO UPDATE SCORE */}
-      <Button onClick={() => onUpdateScoreUser(score + 10)}>Test Score</Button>
       <Typography>Current score : {score}</Typography>
       <Container className='cardContainer' data-testid='cardContainer'>
         {exercises.map((card, index) => (
