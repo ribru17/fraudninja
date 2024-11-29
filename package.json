@@ -15,6 +15,7 @@
     "zod": "^3.23.8"
   },
   "dependencies": {
+    "nodemailer": "^6.9.16",
     "user-event": "^3.0.3"
   }
 }
