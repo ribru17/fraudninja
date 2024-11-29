@@ -1,0 +1,59 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .score-display {
+    margin-bottom: 20px;
+  }
+
+  .card-container {
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .swipeable-card {
+    width: auto;
+    min-width: 300px;
+    max-width: 550px;
+    min-height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    cursor: grab;
+    user-select: none;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .swipeable-card:active {
+    cursor: grabbing;
+  }
+
+  .button-container {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    z-index: 10;
+  }
