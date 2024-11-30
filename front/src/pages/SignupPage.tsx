@@ -18,7 +18,6 @@ function SignupPage() {
   ) => {
     try {
       await signup(values);
-
       enqueueSnackbar('Account created with success !', {
         variant: 'success',
       });

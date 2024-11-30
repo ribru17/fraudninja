@@ -1,96 +1,74 @@
 import type React from 'react';
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Link,
-} from '@mui/material';
-import LinkIcon from '@mui/icons-material/Link';
+import { Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
 
 interface ResourceBoxProps {
   category: string;
   content: string;
-  links: string[];
   imageUrl: string | ArrayBuffer; // Either a URL or Buffer data as a string
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const ResourceBox: React.FC<ResourceBoxProps> = ({
   category,
   content,
-  links,
   imageUrl,
+  onClick,
 }) => {
   const displayedContent =
-    content.length > 350 ? `${content.slice(0, 350)}...` : content;
+    content.length > 280 ? `${content.slice(0, 280)}...` : content;
 
   return (
-    <Card
+    <Box
+      onClick={onClick}
       sx={{
-        height: 450,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+        cursor: 'pointer', // Makes the card look clickable
+        '&:hover': {
+          transform: 'scale(1.02)', // Optional hover effect for feedback
+          transition: 'transform 0.2s ease-in-out',
+        },
       }}
     >
-      {/* Displaying Image */}
-      <CardMedia
-        component='img'
-        height='200'
-        image={
-          typeof imageUrl === 'string'
-            ? imageUrl
-            : `data:image/jpeg;base64,${imageUrl}`
-        }
-        alt={category}
-      />
-
-      {/* Content */}
-      <CardContent
+      <Card
         sx={{
-          flexGrow: 1,
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
+          height: 350,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: 2,
         }}
       >
-        <Typography
-          variant='h5'
-          textAlign='center'
-          marginTop={1}
-          marginBottom={1}
-        >
-          {category}
-        </Typography>
-        <Typography variant='body2'>{displayedContent}</Typography>
+        {/* Displaying Image */}
+        <CardMedia
+          component='img'
+          height='200'
+          image={
+            typeof imageUrl === 'string'
+              ? imageUrl
+              : `data:image/jpeg;base64,${imageUrl}`
+          }
+          alt={category}
+        />
 
-        {links && (
-          <List>
-            {links.map((link) => (
-              <ListItem key={link} disablePadding>
-                <ListItemIcon>
-                  <LinkIcon fontSize='small' />
-                </ListItemIcon>
-                <ListItemText>
-                  <Link
-                    href={link}
-                    target='_blank'
-                    rel='noopener'
-                    underline='hover'
-                    color='secondary'
-                  >
-                    {link}
-                  </Link>
-                </ListItemText>
-              </ListItem>
-            ))}
-          </List>
-        )}
-      </CardContent>
-    </Card>
+        {/* Content */}
+        <CardContent
+          sx={{
+            flexGrow: 1,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          <Typography
+            variant='h5'
+            textAlign='center'
+            marginTop={1}
+            marginBottom={1}
+          >
+            {category}
+          </Typography>
+          <Typography variant='body2'>{displayedContent}</Typography>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 

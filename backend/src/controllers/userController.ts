@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { JWT_KEY } from '../settings';
 import { InsertOneResult } from 'mongodb';
 import { Request, NextFunction, Response } from 'express';
+import { sendEmail } from '../utils/mailer'; // Adjust the import path as needed
 
 export class UserController {
   constructor(private readonly client: UserClient) {}
@@ -107,6 +108,19 @@ export class UserController {
 
   async create(user: Omit<User, '_id'>): Promise<InsertOneResultWithoutId> {
     const createdUser: InsertOneResult = await this.client.create(user);
+
+    // Send a welcome email to the user
+    try {
+      await sendEmail(
+        user.email,
+        'Welcome to Our Service',
+        'Thank you for signing up!',
+      );
+      console.log('Welcome email sent successfully');
+    } catch (error) {
+      console.error('Error sending welcome email:', error);
+    }
+
     return {
       ...createdUser,
       insertedId: encodeHex(createdUser.insertedId),
@@ -148,6 +162,23 @@ export class UserController {
       if (!updatedUser) {
         res.status(500).json({ error: 'Failed to update user' });
         return;
+      }
+
+      if (
+        userUpdates.overallScore &&
+        userUpdates.overallScore >= 100 &&
+        existingUser.overallScore < 100
+      ) {
+        try {
+          await sendEmail(
+            existingUser.email,
+            'Congratulations!',
+            'You have reached 100 points! You are officially graduated from FraudNinja!',
+          );
+          console.log('Congratulations email sent successfully');
+        } catch (error) {
+          console.error('Error sending congratulations email:', error);
+        }
       }
 
       res.json({ ...updatedUser, _id: encodeHex(updatedUser._id) });
