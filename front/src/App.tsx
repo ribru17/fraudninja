@@ -19,7 +19,6 @@ import AppHeader from './components/NavBar/AppHeader';
 import { useAppDispatch } from './redux/hook';
 import { setToken } from './redux/slices';
 import ResourcePage from './pages/ResourcePage';
-import FakePlayPage from './pages/FakePlayPage';
 import LeaderBoardPage from './pages/LeaderBoardPage';
 
 function App() {
@@ -34,7 +33,6 @@ function App() {
               <Container maxWidth='xl' sx={{ mt: 4 }}>
                 <Routes>
                   <Route path='/login' element={<LoginPage />} />
-                  <Route path='/fake-play' element={<FakePlayPage />} />
                   <Route path='/signup' element={<SignupPage />} />
                   <Route path='/play' element={<PlayPage />} />
                   <Route path='/resources' element={<ResourcePage />} />
