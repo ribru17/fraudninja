@@ -1,0 +1,86 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+}
+
+.card-container {
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  height: 550px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* Increased bottom margin */
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 130vh;
+  box-sizing: border-box;
+  padding-bottom: 50px;
+}
+
+.swipeable-card {
+  width: auto;
+  min-width: 500px;
+  min-height: 600px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  cursor: grab;
+  user-select: none;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+
+  max-width: 550 px;
+  position: absolute;
+  display: flex;
+  margin: 0;
+  padding: 1em;
+  box-shadow:
+    2px 3px 20px black,
+    0 0 125px #8f5922 inset;
+  background: #fffef0;
+}
+
+.MuiTypography-root {
+  position: relative;
+  z-index: 2;
+}
+
+.swipeable-card:active {
+  cursor: grabbing;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 300px; /* Creates space between card and buttons */
+}
+
+/*
+card-container:after {
+  content: "\00a0";
+} */
+
+.button-container {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  z-index: 10;
+}

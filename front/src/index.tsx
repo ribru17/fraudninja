@@ -4,12 +4,34 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+// Create a custom theme
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+      light: '#63a4ff',
+      dark: '#004ba0',
+    },
+    secondary: {
+      main: '#ff4081',
+    },
+  },
+});
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
+
 root.render(
   <React.StrictMode>
-    <App />
+    {/* Provide the custom theme to the entire app */}
+    <ThemeProvider theme={theme}>
+      <CssBaseline /> {/* Normalize and reset browser styles */}
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
 );
 

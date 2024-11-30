@@ -1,7 +1,7 @@
 import { ScamCategory } from './scamCategory';
 import { z } from 'zod';
 
-enum ExerciseType {
+export enum ExerciseType {
   Email = 'email',
   Text = 'text',
   default = '',

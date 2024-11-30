@@ -30,7 +30,7 @@ const ResourceBox: React.FC<ResourceBoxProps> = ({
     >
       <Card
         sx={{
-          height: 350,
+          height: 400,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
