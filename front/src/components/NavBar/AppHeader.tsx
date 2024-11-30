@@ -1,5 +1,5 @@
 import type React from 'react';
-import { AppBar, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { useAppSelector } from '../../redux/hook';
 import NavButton from './NavButton';
 import HamburgerMenu from './HamburgerMenu';
@@ -41,17 +41,19 @@ const AppHeader: React.FC<AppHeaderProps> = ({ onSignOutClick }) => {
               onSignOutClick={onSignOutClick}
               userInfo={userInfo}
             />
-            <Typography
-              variant='body1'
-              sx={{ mr: 1, display: 'flex', alignItems: 'center' }}
-            >
-              {userInfo.username}
-              {userInfo.graduated && (
-                <SchoolIcon
-                  sx={{ ml: 0.5, color: '#c2b5d9', verticalAlign: 'middle' }}
-                />
-              )}
-            </Typography>
+            <Box sx={{ mr: 1, display: 'flex', alignItems: 'center' }}>
+              <Typography variant='body1'>{userInfo.username}</Typography>
+              <Typography sx={{ ml: 1, mr: 1 }}>
+                <strong>{userInfo.overallScore}</strong>
+              </Typography>
+              <Typography>
+                {userInfo.graduated && (
+                  <SchoolIcon
+                    sx={{ ml: 0.5, color: '#c2b5d9', verticalAlign: 'middle' }}
+                  />
+                )}
+              </Typography>
+            </Box>
           </>
         )}
       </Toolbar>

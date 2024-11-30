@@ -14,6 +14,7 @@ import TextCard from '../components/TextCard';
 import './SwipeableCard.css';
 import PopUpFeedback from '../components/PopUpFeedback';
 import ScoreDisplay from '../components/ScoreDisplay';
+import EndGame from '../components/EndGame';
 
 export interface PopUpResult {
   isCorrect: boolean;
@@ -183,7 +184,7 @@ function PlayPage() {
   }
 
   if (currentIndex < 0) {
-    return <Typography variant='h6'>No more exercises!</Typography>;
+    return <EndGame totalScore={score} />;
   }
   if (!currentExercise) {
     return null;
