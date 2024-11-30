@@ -26,27 +26,27 @@ function App() {
   const dispatch = useAppDispatch();
   return (
     <Router>
-      {/* <WithSession> */}
-      <SnackbarProvider maxSnack={3} preventDuplicate>
-        <Container>
-          <AppHeader onSignOutClick={() => dispatch(setToken(''))} />
-          <Suspense fallback={<FullScreenSpinner />}>
-            <Container maxWidth='xl' sx={{ mt: 4 }}>
-              <Routes>
-                <Route path='/login' element={<LoginPage />} />
-                <Route path='/fake-play' element={<FakePlayPage />} />
-                <Route path='/signup' element={<SignupPage />} />
-                <Route path='/play' element={<PlayPage />} />
-                <Route path='/resources' element={<ResourcePage />} />
-                <Route path='/leaderboard' element={<LeaderBoardPage />} />
-                <Route path='/' element={<HomePage />} />
-                <Route path='*' element={<Navigate to='/' />} />
-              </Routes>
-            </Container>
-          </Suspense>
-        </Container>
-      </SnackbarProvider>
-      {/* </WithSession> */}
+      <WithSession>
+        <SnackbarProvider maxSnack={3} preventDuplicate>
+          <Container>
+            <AppHeader onSignOutClick={() => dispatch(setToken(''))} />
+            <Suspense fallback={<FullScreenSpinner />}>
+              <Container maxWidth='xl' sx={{ mt: 4 }}>
+                <Routes>
+                  <Route path='/login' element={<LoginPage />} />
+                  <Route path='/fake-play' element={<FakePlayPage />} />
+                  <Route path='/signup' element={<SignupPage />} />
+                  <Route path='/play' element={<PlayPage />} />
+                  <Route path='/resources' element={<ResourcePage />} />
+                  <Route path='/leaderboard' element={<LeaderBoardPage />} />
+                  <Route path='/' element={<HomePage />} />
+                  <Route path='*' element={<Navigate to='/' />} />
+                </Routes>
+              </Container>
+            </Suspense>
+          </Container>
+        </SnackbarProvider>
+      </WithSession>
     </Router>
   );
 }

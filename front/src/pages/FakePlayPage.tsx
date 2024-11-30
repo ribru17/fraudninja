@@ -178,22 +178,6 @@ function SwipeableCard() {
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
           >
-            {/* <Typography variant='h6'>
-              {exercises[currentIndex]?.type === 'email' ? 'Email:' : 'Text:'}
-            </Typography>
-            <Typography
-              variant='body1'
-              style={{
-                whiteSpace: 'pre-wrap',
-                wordBreak: 'break-word',
-                width: '100%',
-              }}
-            >
-              {exercises[currentIndex]?.message}
-            </Typography>
-            <Typography variant='caption'>
-              From: {exercises[currentIndex]?.sender}
-            </Typography> */}
             {exercises[currentIndex]?.type === 'email' ? (
               <EmailCard
                 sender={exercises[currentIndex]?.sender}
