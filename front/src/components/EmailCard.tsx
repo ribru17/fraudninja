@@ -1,7 +1,7 @@
 // EmailCard.tsx
 import { Box, Divider, Paper, Typography } from '@mui/material';
 import React from 'react';
-import './EmailCard.css'; // We'll create this CSS file
+import './EmailCard.css';
 
 interface EmailCardProps {
   sender: string;

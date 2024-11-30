@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { setUser } from '../redux/slices';
 import ApiSdk from '../api/apiSdk';
 import FullScreenSpinner from '../components/FullScreenSpinner';
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import EmailCard from '../components/EmailCard';
 import TextCard from '../components/TextCard';
 import './SwipeableCard.css';
@@ -194,10 +194,11 @@ function PlayPage() {
     <div className='app-container'>
       <ScoreDisplay score={score} />
       <div className='wrapper'>
-        <div className='card-container'>
+        <div className='card-container' data-testid='cardContainer'>
           <div
             ref={cardRef}
             className='swipeable-card'
+            data-testid='swipeable-card'
             style={cardStyle}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}

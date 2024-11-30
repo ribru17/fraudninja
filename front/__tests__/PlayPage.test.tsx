@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import PlayPage from '../src/pages/PlayPage'; // Adjust the import path as needed
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -11,9 +11,27 @@ vi.mock('../src/api/apiSdk', () => ({
   default: vi.fn(() => ({
     getRandomExercises: vi.fn(() =>
       Promise.resolve([
-        { message: 'Card 1' },
-        { message: 'Card 2' },
-        { message: 'Card 3' },
+        {
+          type: 'email',
+          emailSender: 'sender1@example.com',
+          message: 'Card 1',
+          scam: false,
+          feedback: 'Good',
+        },
+        {
+          type: 'text',
+          phoneNumber: '1234567890',
+          message: 'Card 2',
+          scam: true,
+          feedback: 'Scam!',
+        },
+        {
+          type: 'email',
+          emailSender: 'sender3@example.com',
+          message: 'Card 3',
+          scam: false,
+          feedback: 'Safe',
+        },
       ]),
     ),
   })),
@@ -48,23 +66,23 @@ describe('PlayPage', () => {
       </Provider>,
     );
 
-    // Wait for the mock API to resolve and cards to render
-    await screen.findByText('Card 1');
+    // // Wait for the mock API to resolve and cards to render
+    await screen.getByTestId('cardContainer');
   });
 
   it('renders all cards in the document', () => {
     const cardContainer = screen.getByTestId('cardContainer');
-    const cards = cardContainer.querySelectorAll('.card'); // Select cards by className
+    const cards = cardContainer.querySelectorAll('.swipeable-card'); // Select cards by className
     expect(cards.length).toBe(3); // Verify the number of cards
   });
 
   it('renders the Scam button in the document', () => {
-    const scamButton = screen.getByRole('button', { name: /Scam!/i });
+    const scamButton = screen.getByRole('button', { name: /Corrupt!/i });
     expect(scamButton).toBeInTheDocument();
   });
 
   it('renders the Not a Scam button in the document', () => {
-    const notScamButton = screen.getByRole('button', { name: /Not a scam/i });
+    const notScamButton = screen.getByRole('button', { name: /Honorable/i });
     expect(notScamButton).toBeInTheDocument();
   });
 });
