@@ -7,6 +7,8 @@ import {
   Typography,
 } from '@mui/material';
 import React, { CSSProperties, useRef, useState } from 'react';
+import EmailCard from '../components/EmailCard';
+import TextCard from '../components/TextCard';
 import './SwipeableCard.css';
 
 interface FakeExercise {
@@ -176,7 +178,7 @@ function SwipeableCard() {
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
           >
-            <Typography variant='h6'>
+            {/* <Typography variant='h6'>
               {exercises[currentIndex]?.type === 'email' ? 'Email:' : 'Text:'}
             </Typography>
             <Typography
@@ -191,10 +193,20 @@ function SwipeableCard() {
             </Typography>
             <Typography variant='caption'>
               From: {exercises[currentIndex]?.sender}
-            </Typography>
+            </Typography> */}
+            {exercises[currentIndex]?.type === 'email' ? (
+              <EmailCard
+                sender={exercises[currentIndex]?.sender}
+                message={exercises[currentIndex]?.message}
+              />
+            ) : (
+              <TextCard
+                sender={exercises[currentIndex]?.sender}
+                message={exercises[currentIndex]?.message}
+              />
+            )}
           </div>
         </div>
-
         <div className='button-container'>
           <Button
             variant='contained'
@@ -204,7 +216,7 @@ function SwipeableCard() {
             }}
             onClick={() => handleSwipe('left')}
           >
-            Scam!
+            Corrupt!
           </Button>
           <Button
             variant='contained'
@@ -214,7 +226,7 @@ function SwipeableCard() {
             }}
             onClick={() => handleSwipe('right')}
           >
-            Not a scam
+            Honorable
           </Button>
         </div>
       </div>

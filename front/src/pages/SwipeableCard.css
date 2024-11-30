@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 130vh;
     padding: 20px;
     box-sizing: border-box;
     padding-bottom: 50px;
@@ -14,8 +14,8 @@
 
   .swipeable-card {
     width: auto;
-    min-width: 300px;
-    min-height: 400px;
+    min-width: 500px;
+    min-height: 600px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -30,10 +30,11 @@
     overflow-wrap: break-word;
     hyphens: auto;
 
+    max-width: 550 px;
     position: absolute;
     display: flex;
-    margin: 2em 0;
-    padding: 4em;
+    margin: 0;
+    padding: 1em;
     box-shadow: 2px 3px 20px black, 0 0 125px #8f5922 inset;
     background: #fffef0;
   }
@@ -47,10 +48,13 @@
     cursor: grabbing;
   }
 
-  .swipeable-card:after {
-    content: "\00a0";
-    white-space: pre;
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 300px;  /* Creates space between card and buttons */
   }
+
   /*
 card-container:after {
   content: "\00a0";

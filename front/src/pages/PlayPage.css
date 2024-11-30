@@ -40,7 +40,7 @@ body {
   height: 550px;
   display: flex;
   justify-content: center;
-  bottom: 20px; /* Increased bottom margin */
+  margin-bottom: 20px; /* Increased bottom margin */
 }
 
 
