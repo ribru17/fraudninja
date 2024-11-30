@@ -37,7 +37,11 @@ function PopUpFeedback({
             ? 'Great job identifying the scam!'
             : "Oops! That wasn't the right assessment."}
         </Typography>
-        <Typography variant='body2' style={{ marginTop: '16px' }}>
+        <Typography
+          variant='body2'
+          style={{ marginTop: '16px' }}
+          sx={{ whiteSpace: 'pre-wrap' }}
+        >
           <strong>Feedback:</strong> {popupResult.feedback}
         </Typography>
       </DialogContent>

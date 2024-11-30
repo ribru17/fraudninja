@@ -28,6 +28,7 @@ const TextCard: React.FC<TextCardProps> = ({ sender, message }) => {
             sx={{
               color: '#fff',
               wordBreak: 'break-word',
+              whiteSpace: 'pre-wrap',
             }}
           >
             {message}

@@ -22,6 +22,9 @@ export interface PopUpResult {
 
 function PlayPage() {
   const [exercises, setExercises] = useState<(Email | ExerciseText)[]>([]);
+  const [copyExercises, setCopyExercises] = useState<(Email | ExerciseText)[]>(
+    [],
+  );
   const { userInfo } = useAppSelector((state) => state.user);
   const [score, setScore] = useState<number>(userInfo.overallScore);
   const hasFetched = useRef(false);
@@ -36,10 +39,11 @@ function PlayPage() {
   });
   const [isComplete, setIsComplete] = useState(false);
   const dispatch = useAppDispatch();
-
   const cardRef = useRef<HTMLDivElement>(null);
   const startPosRef = useRef({ x: 0, y: 0 });
   const SWIPE_THRESHOLD = 200; // pixels to trigger a swipe
+  const [currentIndex, setCurrentIndex] = useState(exercises.length - 1);
+  const currentIndexRef = useRef(currentIndex);
 
   // Disable scrolling only for this specific page
   // useEffect(() => {
@@ -55,6 +59,7 @@ function PlayPage() {
       hasFetched.current = true;
       api.getRandomExercises(token).then((exercises) => {
         setExercises(exercises);
+        setCopyExercises(exercises);
       });
     }
     // eslint-disable-next-line
@@ -67,9 +72,6 @@ function PlayPage() {
   const isText = (exercise: Exercise): exercise is ExerciseText => {
     return exercise.type === 'text';
   };
-
-  const [currentIndex, setCurrentIndex] = useState(exercises.length - 1);
-  const currentIndexRef = useRef(currentIndex);
 
   function updateUserScore(newScore: number) {
     api
@@ -174,23 +176,21 @@ function PlayPage() {
     transition: isDragging ? 'none' : 'transform 0.3s ease-out',
   };
 
-  //If no cards left
+  const currentExercise = exercises[currentIndex];
+
+  if (!copyExercises.length) {
+    return <FullScreenSpinner />;
+  }
+
   if (currentIndex < 0) {
     return <Typography variant='h6'>No more exercises!</Typography>;
   }
-
-  // const currentCard = exercises[currentIndex]?.;
-  const currentExercise = exercises[currentIndex];
-
   if (!currentExercise) {
-    return null; // Handle the case where currentExercise is undefined
+    return null;
   }
-
-  if (!exercises.length) return <FullScreenSpinner />;
 
   return (
     <div className='app-container'>
-      {/* <Typography className='score-display'>Current score: {score}</Typography> */}
       <ScoreDisplay score={score} />
       <div className='wrapper'>
         <div className='card-container'>
