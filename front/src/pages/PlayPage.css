@@ -2,33 +2,13 @@ html,
 body {
   margin: 0;
   height: 100%;
+  background-color: rgb(31, 1, 1);
 }
 
-.cardContainer {
-  width: 90vw;
-  max-width: 260px;
-  height: 300px;
-}
 
-.card {
-  position: absolute;
-  width: 200px;
-}
-
-.innerCard {
-  position: relative;
-  background-color: #fff;
-  height: 300px;
-  box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.3);
-  border-radius: 20px;
-  background-size: cover;
-  background-position: center;
-  padding: 15px;
-  user-select: none;
-}
 
 .buttons {
-  margin: 20px;
+  margin: 50px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -53,6 +33,22 @@ body {
   box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
 }
 
+.card-container {
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  height: 550px;
+  display: flex;
+  justify-content: center;
+  bottom: 20px; /* Increased bottom margin */
+}
+
+
 .buttons button:hover {
   transform: scale(1.05);
 }
+
+.MuiTypography-h6 {
+  color: aqua;
+}
+

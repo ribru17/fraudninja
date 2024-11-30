@@ -5,32 +5,20 @@
     height: 100vh;
     padding: 20px;
     box-sizing: border-box;
-  }
+    padding-bottom: 50px;
+}
 
   .score-display {
-    margin-bottom: 20px;
-  }
-
-  .card-container {
-    position: relative;
-    width: 100%;
-    max-width: 550px;
-    height: 550px;
-    display: flex;
-    justify-content: center;
     margin-bottom: 20px;
   }
 
   .swipeable-card {
     width: auto;
     min-width: 300px;
-    max-width: 550px;
     min-height: 400px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    padding: 20px;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -41,11 +29,32 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
+
+    position: absolute;
+    display: flex;
+    margin: 2em 0;
+    padding: 4em;
+    box-shadow: 2px 3px 20px black, 0 0 125px #8f5922 inset;
+    background: #fffef0;
+  }
+
+  .MuiTypography-root {
+    position: relative;
+    z-index: 2;
   }
 
   .swipeable-card:active {
     cursor: grabbing;
   }
+
+  .swipeable-card:after {
+    content: "\00a0";
+    white-space: pre;
+  }
+  /*
+card-container:after {
+  content: "\00a0";
+} */
 
   .button-container {
     position: fixed;
