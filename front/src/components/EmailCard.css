@@ -1,15 +1,12 @@
 .MuiTypography-subtitle2 {
-    text-align: left;
+  text-align: left;
 }
 
-
- .paper-style {
-    min-width: 450px !important;
-    min-height: 400px !important;
-    padding: 16px; /* 2 * 8px (MUI spacing system translates to px) */
-    /* max-width: 500px; */
-    /* border-radius: 0px; 2 * 8px */
-    background-color:#8f592257 !important;
-
+.paper-style {
+  min-width: 450px !important;
+  min-height: 400px !important;
+  padding: 16px; /* 2 * 8px (MUI spacing system translates to px) */
+  /* max-width: 500px; */
+  /* border-radius: 0px; 2 * 8px */
+  background-color: #8f592257 !important;
 }
-
