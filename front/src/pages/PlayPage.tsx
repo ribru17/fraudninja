@@ -39,12 +39,15 @@ function PlayPage() {
     feedback: '',
   });
   const [isComplete, setIsComplete] = useState(false);
+  const [hasGraduatedChecked, setHasGraduatedChecked] = useState(false);
+  const [isGraduating, setIsGraduating] = useState(false);
   const dispatch = useAppDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
   const startPosRef = useRef({ x: 0, y: 0 });
   const SWIPE_THRESHOLD = 200; // pixels to trigger a swipe
   const [currentIndex, setCurrentIndex] = useState(exercises.length - 1);
   const currentIndexRef = useRef(currentIndex);
+  const threshold_graduation = 1000;
 
   // Disable scrolling only for this specific page
   // useEffect(() => {
@@ -76,7 +79,7 @@ function PlayPage() {
 
   function updateUserScore(newScore: number) {
     api
-      .updateScoreUser(token, userInfo._id, { overallScore: newScore })
+      .updateUser(token, userInfo._id, { overallScore: newScore })
       .then((user) => {
         if (user) {
           dispatch(setUser(user));
@@ -183,9 +186,29 @@ function PlayPage() {
     return <FullScreenSpinner />;
   }
 
-  if (currentIndex < 0) {
-    return <EndGame totalScore={score} />;
+  if (isComplete) {
+    if (!hasGraduatedChecked) {
+      if (!userInfo.graduated && score >= threshold_graduation) {
+        setIsGraduating(true);
+
+        // Perform the API call to update graduation status and send email for graduation
+        api
+          .updateUser(token, userInfo._id, {
+            graduated: true,
+          })
+          .then((user) => {
+            if (user) {
+              dispatch(setUser(user));
+            }
+          });
+
+        setHasGraduatedChecked(true);
+      }
+    }
+
+    return <EndGame totalScore={score} isGraduating={isGraduating} />;
   }
+
   if (!currentExercise) {
     return null;
   }

@@ -22,7 +22,6 @@ const ResourcePage: React.FC = () => {
       hasFetched.current = true;
       api.getAllResources(token).then((resources) => {
         setResources(resources);
-        console.log(resources);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

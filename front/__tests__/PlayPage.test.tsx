@@ -28,7 +28,7 @@ vi.mock('../src/api/apiSdk', () => ({
         },
       ]),
     ),
-    updateScoreUser: vi.fn(() => Promise.resolve({ overallScore: 60 })),
+    updateUser: vi.fn(() => Promise.resolve({ overallScore: 60 })),
   })),
 }));
 

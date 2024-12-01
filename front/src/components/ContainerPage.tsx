@@ -1,6 +1,5 @@
 import { Typography, Container } from '@mui/material';
 import type { ReactNode } from 'react';
-import BackButton from './BackButton';
 
 interface ContainerPageProps {
   title: string;
@@ -10,7 +9,6 @@ interface ContainerPageProps {
 function ContainerPage({ title, children }: ContainerPageProps) {
   return (
     <>
-      <BackButton />
       <Typography variant='h4' align='center' gutterBottom>
         {title}
       </Typography>

@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 interface EndGameProps {
   totalScore: number;
+  isGraduating: boolean;
 }
 
-const EndGame: React.FC<EndGameProps> = ({ totalScore }) => {
+const EndGame: React.FC<EndGameProps> = ({ totalScore, isGraduating }) => {
   const navigate = useNavigate();
 
   const handlePlayAgain = () => {
@@ -36,12 +37,27 @@ const EndGame: React.FC<EndGameProps> = ({ totalScore }) => {
         margin: 'auto',
       }}
     >
-      <Typography variant='h4' sx={{ marginBottom: 2 }}>
-        Congratulations! 🎉
-      </Typography>
-      <Typography variant='body1' sx={{ marginBottom: 3 }}>
-        You completed a set of 10 cards! Your total score is:
-      </Typography>
+      {isGraduating ? (
+        <>
+          <Typography variant='h4' sx={{ marginBottom: 2 }}>
+            Congratulations, you just graduated ! 🎉 🎓
+          </Typography>
+          <Typography variant='body1' sx={{ marginBottom: 3 }}>
+            You will received soon an email to confirm your graduation ! Your
+            total score is :
+          </Typography>
+        </>
+      ) : (
+        <>
+          <Typography variant='h4' sx={{ marginBottom: 2 }}>
+            Congratulations ! 🎉
+          </Typography>
+          <Typography variant='body1' sx={{ marginBottom: 3 }}>
+            You just completed a set of 10 cards! Your total score is:
+          </Typography>
+        </>
+      )}
+
       <Typography variant='h6' sx={{ marginBottom: 3, fontWeight: 'bold' }}>
         {totalScore}
       </Typography>
