@@ -23,9 +23,7 @@ export interface PopUpResult {
 
 function PlayPage() {
   const [exercises, setExercises] = useState<(Email | ExerciseText)[]>([]);
-  const [copyExercises, setCopyExercises] = useState<(Email | ExerciseText)[]>(
-    [],
-  );
+  const [loading, setLoading] = useState(true);
   const { userInfo } = useAppSelector((state) => state.user);
   const [score, setScore] = useState<number>(userInfo.overallScore);
   const hasFetched = useRef(false);
@@ -45,25 +43,18 @@ function PlayPage() {
   const cardRef = useRef<HTMLDivElement>(null);
   const startPosRef = useRef({ x: 0, y: 0 });
   const SWIPE_THRESHOLD = 200; // pixels to trigger a swipe
-  const [currentIndex, setCurrentIndex] = useState(exercises.length - 1);
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const currentIndexRef = useRef(currentIndex);
   const threshold_graduation = 1000;
-
-  // Disable scrolling only for this specific page
-  // useEffect(() => {
-  //   document.body.style.overflow = 'hidden';
-
-  //   return () => {
-  //     document.body.style.overflow = 'auto';
-  //   };
-  // }, []);
 
   useEffect(() => {
     if (!hasFetched.current) {
       hasFetched.current = true;
       api.getRandomExercises(token).then((exercises) => {
         setExercises(exercises);
-        setCopyExercises(exercises);
+        setCurrentIndex(exercises.length - 1);
+        currentIndexRef.current = exercises.length - 1;
+        setLoading(false);
       });
     }
     // eslint-disable-next-line
@@ -87,11 +78,6 @@ function PlayPage() {
         }
       });
   }
-
-  useEffect(() => {
-    setCurrentIndex(exercises.length - 1);
-    currentIndexRef.current = exercises.length - 1;
-  }, [exercises]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!cardRef.current) return;
@@ -128,7 +114,8 @@ function PlayPage() {
   };
 
   const handleSwipe = (direction: 'left' | 'right') => {
-    if (currentIndex < 0) return;
+    if (currentIndex == null || currentIndex < 0 || !exercises[currentIndex])
+      return;
 
     const currentCard = exercises[currentIndex];
 
@@ -152,10 +139,10 @@ function PlayPage() {
     setExercises(newExercises);
 
     // Update current index
-    if (currentIndex === 0) {
+    if (newExercises.length === 0) {
       setIsComplete(true);
     } else {
-      setCurrentIndex((prev) => Math.max(prev - 1, -1));
+      setCurrentIndex((prev) => (prev !== null ? prev - 1 : null));
     }
 
     // Reset position
@@ -170,7 +157,7 @@ function PlayPage() {
   const handleClosePopup = () => {
     setPopupOpen(false);
     if (isComplete) {
-      setCurrentIndex((prev) => prev - 1);
+      setCurrentIndex(null);
     }
   };
 
@@ -180,13 +167,11 @@ function PlayPage() {
     transition: isDragging ? 'none' : 'transform 0.3s ease-out',
   };
 
-  const currentExercise = exercises[currentIndex];
-
-  if (!copyExercises.length) {
+  if (loading) {
     return <FullScreenSpinner />;
   }
 
-  if (isComplete) {
+  if (isComplete && !popupOpen) {
     if (!hasGraduatedChecked) {
       if (!userInfo.graduated && score >= threshold_graduation) {
         setIsGraduating(true);
@@ -209,56 +194,58 @@ function PlayPage() {
     return <EndGame totalScore={score} isGraduating={isGraduating} />;
   }
 
-  if (!currentExercise) {
-    return null;
-  }
+  const currentExercise =
+    currentIndex !== null ? exercises[currentIndex] : null;
+
+  // if (!currentExercise) {
+  //   return null;
+  // }
 
   return (
     <div className='app-container'>
       <ScoreDisplay score={score} />
       <div className='wrapper'>
         <div className='card-container' data-testid='cardContainer'>
-          <div
-            ref={cardRef}
-            className='swipeable-card'
-            data-testid='swipeable-card'
-            style={cardStyle}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
-          >
-            {isEmail(currentExercise) ? (
-              <EmailCard
-                sender={currentExercise.emailSender}
-                message={currentExercise.message}
-              />
-            ) : isText(currentExercise) ? (
-              <TextCard
-                sender={currentExercise.phoneNumber}
-                message={currentExercise.message}
-              />
-            ) : null}
-          </div>
+          {currentExercise && (
+            <div
+              ref={cardRef}
+              className='swipeable-card'
+              data-testid='swipeable-card'
+              style={cardStyle}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+            >
+              {isEmail(currentExercise) ? (
+                <EmailCard
+                  sender={currentExercise.emailSender}
+                  message={currentExercise.message}
+                />
+              ) : isText(currentExercise) ? (
+                <TextCard
+                  sender={currentExercise.phoneNumber}
+                  message={currentExercise.message}
+                />
+              ) : null}
+            </div>
+          )}
         </div>
+
         <div className='button-container'>
           <Button
             variant='contained'
-            style={{
-              backgroundColor: currentIndex < 0 ? '#c3c4d3' : 'red',
-              minWidth: '100px',
-            }}
+            color='error'
             onClick={() => handleSwipe('left')}
+            disabled={currentIndex === null}
           >
             Corrupt!
           </Button>
           <Button
             variant='contained'
-            style={{
-              backgroundColor: currentIndex < 0 ? '#c3c4d3' : 'green',
-              minWidth: '100px',
-            }}
+            color='success'
             onClick={() => handleSwipe('right')}
+            disabled={currentIndex === null}
           >
             Honorable
           </Button>

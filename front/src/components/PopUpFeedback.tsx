@@ -28,13 +28,18 @@ function PopUpFeedback({
       onClose={handleClosePopup}
       aria-labelledby='result-dialog-title'
     >
-      <DialogTitle id='result-dialog-title'>
+      <DialogTitle
+        id='result-dialog-title'
+        sx={{
+          color: popupResult.isCorrect ? 'green' : 'red',
+        }}
+      >
         {popupResult.isCorrect ? 'Correct!' : 'Incorrect'}
       </DialogTitle>
       <DialogContent>
         <Typography variant='body1'>
           {popupResult.isCorrect
-            ? 'Great job identifying the scam!'
+            ? 'Well done analyzing this message!'
             : "Oops! That wasn't the right assessment."}
         </Typography>
         <Typography

@@ -27,8 +27,8 @@ function App() {
     <Router>
       <WithSession>
         <SnackbarProvider maxSnack={3} preventDuplicate>
+          <AppHeader onSignOutClick={() => dispatch(setToken(''))} />
           <Container>
-            <AppHeader onSignOutClick={() => dispatch(setToken(''))} />
             <Suspense fallback={<FullScreenSpinner />}>
               <Container maxWidth='xl' sx={{ mt: 4 }}>
                 <Routes>
