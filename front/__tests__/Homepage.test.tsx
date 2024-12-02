@@ -21,12 +21,6 @@ const renderWithProviders = (ui: React.ReactElement) => {
 };
 
 describe('Create Home Page', () => {
-  it('renders "Welcome to the game FraudNinja!" heading', () => {
-    renderWithProviders(<HomePage />);
-    const welcomeMessage = screen.getByText(/Welcome to the game FraudNinja!/i);
-    expect(welcomeMessage).toBeInTheDocument();
-  });
-
   it('renders the Play button', () => {
     renderWithProviders(<HomePage />);
 

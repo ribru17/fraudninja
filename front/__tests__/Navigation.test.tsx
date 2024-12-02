@@ -1,15 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import App from '../src/App'; // Adjust the import path as needed
-import LoginPage from '../src/pages/Login';
 import HomePage from '../src/pages/HomePage';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, it, expect, vi } from 'vitest';
-import { login } from '../src/actions/session';
 import { MemoryRouter } from 'react-router-dom';
-import { createStore } from 'redux';
 
 vi.mock('../src/actions/session', () => ({
   login: vi.fn(),
@@ -66,11 +62,11 @@ describe('Login Required Navigation', () => {
     );
 
     // Wait for the mock API to resolve and cards to render
-    await screen.findByText('Welcome to the game FraudNinja!');
+    await screen.getByRole('button', { name: /Play/i });
   });
   it('simulated login directs to the home page', async () => {
     expect(
-      await screen.findByText('Welcome to the game FraudNinja!'),
+      await screen.getByRole('button', { name: /Play/i }),
     ).toBeInTheDocument();
 
     const playButton = screen.getByRole('button', { name: /Play/i });

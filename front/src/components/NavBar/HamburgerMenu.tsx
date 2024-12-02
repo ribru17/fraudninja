@@ -3,7 +3,6 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState, type MouseEvent } from 'react';
 import { Avatar, Button } from '@mui/material';
-import { deepPurple } from '@mui/material/colors';
 import type { User } from '@shared_types';
 
 interface HamburgerMenuProps {
@@ -24,7 +23,7 @@ function HamburgerMenu({ onSignOutClick, userInfo }: HamburgerMenuProps) {
       <div>
         <IconButton onClick={handleClick} disableRipple>
           <div className=''>
-            <Avatar sx={{ bgcolor: deepPurple[500] }}>
+            <Avatar sx={{ bgcolor: 'tertiary.dark' }}>
               {userInfo.username[0].toUpperCase()}
             </Avatar>
           </div>

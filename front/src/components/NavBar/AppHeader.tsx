@@ -1,10 +1,12 @@
 import type React from 'react';
-import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import { useAppSelector } from '../../redux/hook';
 import NavButton from './NavButton';
 import HamburgerMenu from './HamburgerMenu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SchoolIcon from '@mui/icons-material/School';
+import FraudNinjaLogo from '../../images/Fraudninja-long.png';
+import { useNavigate } from 'react-router-dom';
 
 interface AppHeaderProps {
   onSignOutClick: () => void;
@@ -13,6 +15,7 @@ interface AppHeaderProps {
 const AppHeader: React.FC<AppHeaderProps> = ({ onSignOutClick }) => {
   const { userInfo } = useAppSelector((state) => state.user);
   const { isLoggedIn } = useAppSelector((state) => state.session);
+  const navigate = useNavigate();
   return (
     <AppBar position='static'>
       <Toolbar>
@@ -21,10 +24,13 @@ const AppHeader: React.FC<AppHeaderProps> = ({ onSignOutClick }) => {
           component='div'
           sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}
         >
-          <NavButton href='/' label='Fraud Ninja' />
-          {isLoggedIn && (
-            <LogoutIcon onClick={onSignOutClick} sx={{ cursor: 'pointer' }} />
-          )}
+          <IconButton onClick={() => navigate('/')}>
+            <img
+              src={FraudNinjaLogo}
+              alt='App Icon'
+              style={{ width: 250, height: 50 }}
+            />
+          </IconButton>
         </Typography>
 
         {isLoggedIn && (
@@ -49,11 +55,18 @@ const AppHeader: React.FC<AppHeaderProps> = ({ onSignOutClick }) => {
               <Typography>
                 {userInfo.graduated && (
                   <SchoolIcon
-                    sx={{ ml: 0.5, color: '#c2b5d9', verticalAlign: 'middle' }}
+                    sx={{
+                      mr: 1,
+                      color: 'tertiary.dark',
+                      verticalAlign: 'middle',
+                    }}
                   />
                 )}
               </Typography>
             </Box>
+            {isLoggedIn && (
+              <LogoutIcon onClick={onSignOutClick} sx={{ cursor: 'pointer' }} />
+            )}
           </>
         )}
       </Toolbar>

@@ -197,10 +197,6 @@ function PlayPage() {
   const currentExercise =
     currentIndex !== null ? exercises[currentIndex] : null;
 
-  // if (!currentExercise) {
-  //   return null;
-  // }
-
   return (
     <div className='app-container'>
       <ScoreDisplay score={score} />
