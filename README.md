@@ -12,7 +12,7 @@ can be customized to work in a scrum development process.
 ### Installing and running
 
 For installation and development instructions, refer to
-[the wiki page](https://github.com/ribru17/fraudninja/wiki#development).
+[the wiki page](https://github.com/gang21/CS130-Capstone-Project/wiki#development).
 
 ## CI/CD
 
